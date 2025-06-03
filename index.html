@@ -15,16 +15,16 @@
 
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <script>
-    mapboxgl.accessToken = pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
+    mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
 
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/dark-v11',
-      center: [-95, 56], // Start somewhere in Canada
+      center: [-95, 56],
       zoom: 4
     });
 
-    const geojsonURL = 'https://raw.githubusercontent.com/RobertVLevesque/fire-tracker/main/data/fire-map.geojson';
+    const geojsonURL = 'https://raw.githubusercontent.com/RobertVLevesque/fire-tracker/main/data/fire_alerts.geojson';
 
     map.on('load', () => {
       map.addSource('fires', {
@@ -43,12 +43,10 @@
         }
       });
 
-      // Refresh data every 5 minutes
       setInterval(() => {
         map.getSource('fires').setData(geojsonURL);
-      }, 300000); // 5 minutes in milliseconds
+      }, 300000);
     });
   </script>
 </body>
 </html>
-
