@@ -36,81 +36,78 @@
   <script>
     mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
 
-    const map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/satellite-streets-v12',
-      center: [-95, 56],
-      zoom: 4
-    });
-
     const geojsonURL = 'https://raw.githubusercontent.com/RobertVLevesque/fire-tracker/main/data/fire_alerts.geojson';
 
-    map.on('load', () =>
-     map.addSource('cwfis-hotspots', {
-  type: 'raster',
-  tiles: [
-    'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/wms?' +
-    'service=WMS&version=1.1.0&request=GetMap&layers=public:hotspots_last24hrs' +
-    '&styles=&format=image/png&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}' +
-    '&width=256&height=256'
-  ],
-  tileSize: 256
-});
+    const setupMap = (style) => {
+      const map = new mapboxgl.Map({
+        container: 'map',
+        style: style,
+        center: [-95, 56],
+        zoom: 4
+      });
 
-map.addLayer({
-  id: 'cwfis-hotspots-layer',
-  type: 'raster',
-  source: 'cwfis-hotspots',
-  paint: {
-    'raster-opacity': 1
-  }
-});
+      map.on('load', () => {
+        // 🔥 Add CWFIS raster tile layer
+        map.addSource('cwfis-hotspots', {
+          type: 'raster',
+          tiles: [
+            'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/wms?' +
+            'service=WMS&version=1.1.0&request=GetMap&layers=public:hotspots_last24hrs' +
+            '&styles=&format=image/png&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}' +
+            '&width=256&height=256'
+          ],
+          tileSize: 256
+        });
 
-     // Load and use NASA-style flame icon
-map.loadImage(
-  'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Fire_icon.svg/32px-Fire_icon.svg.png',
-  (error, image) => {
-    if (error) throw error;
-    map.addImage('fire-icon', image);
+        map.addLayer({
+          id: 'cwfis-hotspots-layer',
+          type: 'raster',
+          source: 'cwfis-hotspots',
+          paint: { 'raster-opacity': 1 }
+        });
 
-    map.addLayer({
-      id: 'fire-symbols',
-      type: 'symbol',
-      source: 'fires',
-      layout: {
-        'icon-image': 'fire-icon',
-        'icon-size': 0.75,
-        'icon-allow-overlap': true
-      }
-    });
-  }
-);
-
-
-
-      setInterval(() => {
-        map.getSource('fires').setData(geojsonURL);
-      }, 300000); // every 5 minutes
-    });
-
-    document.getElementById('style-selector').addEventListener('change', (e) => {
-      map.setStyle(e.target.value);
-      map.once('style.load', () => {
+        // 🔥 Add NASA-style flame icons for your custom fire data
         map.addSource('fires', {
           type: 'geojson',
           data: geojsonURL
         });
-        map.addLayer({
-          id: 'fire-dots',
-          type: 'circle',
-          source: 'fires',
-          paint: {
-            'circle-radius': 5,
-            'circle-color': '#ff5500',
-            'circle-opacity': 0.8
+
+        map.loadImage(
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Fire_icon.svg/32px-Fire_icon.svg.png',
+          (error, image) => {
+            if (error) throw error;
+            if (!map.hasImage('fire-icon')) map.addImage('fire-icon', image);
+
+            map.addLayer({
+              id: 'fire-symbols',
+              type: 'symbol',
+              source: 'fires',
+              layout: {
+                'icon-image': 'fire-icon',
+                'icon-size': 0.75,
+                'icon-allow-overlap': true
+              }
+            });
           }
-        });
+        );
+
+        // 🔁 Refresh fire data every 5 minutes
+        setInterval(() => {
+          map.getSource('fires').setData(geojsonURL);
+        }, 300000);
       });
+
+      return map;
+    };
+
+    let currentMap = setupMap('mapbox://styles/mapbox/satellite-streets-v12');
+
+    // 🔄 Base map toggle (recreate entire map to retain custom layers)
+    document.getElementById('style-selector').addEventListener('change', (e) => {
+      const container = document.getElementById('map');
+      currentMap.remove();
+      container.innerHTML = '';
+      currentMap = setupMap(e.target.value);
     });
   </script>
 </body>
