@@ -1,37 +1,72 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>Live Fire Tracker</title>
-  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
-  <style>
-    body { margin: 0; padding: 0; }
-    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-  </style>
-</head>
-<body>
-  <div id="map"></div>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
 
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-  <script>
-    mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
+  const styles = {
+    'Dark': 'mapbox://styles/mapbox/dark-v11',
+    'Light': 'mapbox://styles/mapbox/light-v11',
+    'Streets': 'mapbox://styles/mapbox/streets-v12',
+    'Outdoors': 'mapbox://styles/mapbox/outdoors-v12',
+    'Satellite': 'mapbox://styles/mapbox/satellite-v9',
+    'Satellite + Labels': 'mapbox://styles/mapbox/satellite-streets-v12',
+    'Navigation Day': 'mapbox://styles/mapbox/navigation-day-v1',
+    'Navigation Night': 'mapbox://styles/mapbox/navigation-night-v1',
+  };
 
-    const map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/dark-v11',
-      center: [-95, 56],
-      zoom: 4
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: styles['Dark'], // default
+    center: [-95, 56],
+    zoom: 4
+  });
+
+  const geojsonURL = 'https://raw.githubusercontent.com/RobertVLevesque/fire-tracker/main/data/fire_alerts.geojson';
+
+  map.on('load', () => {
+    map.addSource('fires', {
+      type: 'geojson',
+      data: geojsonURL
     });
 
-    const geojsonURL = 'https://raw.githubusercontent.com/RobertVLevesque/fire-tracker/main/data/fire_alerts.geojson';
+    map.addLayer({
+      id: 'fire-dots',
+      type: 'circle',
+      source: 'fires',
+      paint: {
+        'circle-radius': 5,
+        'circle-color': '#ff5500',
+        'circle-opacity': 0.8
+      }
+    });
 
-    map.on('load', () => {
+    setInterval(() => {
+      map.getSource('fires').setData(geojsonURL);
+    }, 300000);
+  });
+
+  // Toggle dropdown
+  const styleSelector = document.createElement('select');
+  styleSelector.style.position = 'absolute';
+  styleSelector.style.top = '10px';
+  styleSelector.style.right = '10px';
+  styleSelector.style.padding = '6px';
+  styleSelector.style.zIndex = 1;
+
+  Object.keys(styles).forEach(name => {
+    const option = document.createElement('option');
+    option.value = styles[name];
+    option.text = name;
+    styleSelector.appendChild(option);
+  });
+
+  styleSelector.addEventListener('change', (e) => {
+    const newStyle = e.target.value;
+    map.setStyle(newStyle);
+    map.once('style.load', () => {
       map.addSource('fires', {
         type: 'geojson',
         data: geojsonURL
       });
-
       map.addLayer({
         id: 'fire-dots',
         type: 'circle',
@@ -42,11 +77,8 @@
           'circle-opacity': 0.8
         }
       });
-
-      setInterval(() => {
-        map.getSource('fires').setData(geojsonURL);
-      }, 300000);
     });
-  </script>
-</body>
-</html>
+  });
+
+  document.body.appendChild(styleSelector);
+</script>
