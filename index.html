@@ -8,10 +8,29 @@
   <style>
     body { margin: 0; padding: 0; }
     #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    .map-overlay {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.9);
+      padding: 10px;
+      font-family: sans-serif;
+      z-index: 1;
+    }
   </style>
 </head>
 <body>
   <div id="map"></div>
+  <div class="map-overlay">
+    <label for="style-selector">Map Style:</label>
+    <select id="style-selector">
+      <option value="mapbox://styles/mapbox/satellite-streets-v12" selected>Satellite + Streets</option>
+      <option value="mapbox://styles/mapbox/dark-v11">Dark</option>
+      <option value="mapbox://styles/mapbox/light-v11">Light</option>
+      <option value="mapbox://styles/mapbox/streets-v12">Streets</option>
+      <option value="mapbox://styles/mapbox/outdoors-v12">Outdoors</option>
+    </select>
+  </div>
 
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <script>
@@ -45,7 +64,27 @@
 
       setInterval(() => {
         map.getSource('fires').setData(geojsonURL);
-      }, 300000);
+      }, 300000); // every 5 minutes
+    });
+
+    document.getElementById('style-selector').addEventListener('change', (e) => {
+      map.setStyle(e.target.value);
+      map.once('style.load', () => {
+        map.addSource('fires', {
+          type: 'geojson',
+          data: geojsonURL
+        });
+        map.addLayer({
+          id: 'fire-dots',
+          type: 'circle',
+          source: 'fires',
+          paint: {
+            'circle-radius': 5,
+            'circle-color': '#ff5500',
+            'circle-opacity': 0.8
+          }
+        });
+      });
     });
   </script>
 </body>
