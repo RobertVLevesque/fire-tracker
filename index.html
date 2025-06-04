@@ -8,108 +8,100 @@
   <style>
     body { margin: 0; padding: 0; }
     #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-    .map-overlay {
+    #style-selector {
       position: absolute;
       top: 10px;
       right: 10px;
-      background: rgba(255,255,255,0.9);
-      padding: 10px;
-      font-family: sans-serif;
+      background: white;
       z-index: 1;
+      font-family: sans-serif;
+      font-size: 14px;
+      border-radius: 4px;
+      padding: 5px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
     }
   </style>
 </head>
 <body>
-  <div id="map"></div>
-  <div class="map-overlay">
-    <label for="style-selector">Map Style:</label>
-    <select id="style-selector">
-      <option value="mapbox://styles/mapbox/satellite-streets-v12" selected>Satellite + Streets</option>
-      <option value="mapbox://styles/mapbox/dark-v11">Dark</option>
-      <option value="mapbox://styles/mapbox/light-v11">Light</option>
-      <option value="mapbox://styles/mapbox/streets-v12">Streets</option>
-      <option value="mapbox://styles/mapbox/outdoors-v12">Outdoors</option>
-    </select>
-  </div>
+<div id="map"></div>
+<div id="style-selector">
+  Map Style:
+  <select id="style-switcher">
+    <option value="mapbox://styles/mapbox/satellite-streets-v12">Satellite + Streets</option>
+    <option value="mapbox://styles/mapbox/light-v10">Light</option>
+    <option value="mapbox://styles/mapbox/dark-v11">Dark</option>
+    <option value="mapbox://styles/mapbox/outdoors-v11">Outdoors</option>
+    <option value="mapbox://styles/mapbox/streets-v12">Streets</option>
+  </select>
+</div>
 
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-  <script>
-    mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
 
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/satellite-streets-v12',
+    center: [-95, 56],
+    zoom: 4
+  });
+
+  document.getElementById('style-switcher').addEventListener('change', function() {
+    map.setStyle(this.value);
+  });
+
+  map.on('style.load', () => {
     const geojsonURL = 'https://raw.githubusercontent.com/RobertVLevesque/fire-tracker/main/data/fire_alerts.geojson';
-const flameIconURL = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/FireIcon.svg/120px-FireIcon.svg.png';
 
-    let map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/satellite-streets-v12',
-      center: [-95, 56],
-      zoom: 4
+    map.addSource('fires', {
+      type: 'geojson',
+      data: geojsonURL
     });
 
-    function addLayers() {
-      // Add CWFIS hotspots layer
-      map.addSource('cwfis-hotspots', {
-        type: 'raster',
-        tiles: [
-          'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/wms?' +
-          'service=WMS&version=1.1.0&request=GetMap&layers=public:hotspots_last24hrs' +
-          '&styles=&format=image/png&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}' +
-          '&width=256&height=256'
-        ],
-        tileSize: 256
-      });
+    map.loadImage('https://upload.wikimedia.org/wikipedia/commons/5/5f/FireIcon.svg', (error, image) => {
+      if (error) throw error;
+      map.addImage('fire-icon', image, { sdf: true });
 
       map.addLayer({
-        id: 'cwfis-hotspots-layer',
-        type: 'raster',
-        source: 'cwfis-hotspots',
-        paint: { 'raster-opacity': 1 }
-      });
-
-      // Add GeoJSON source for fires
-      map.addSource('fires', {
-        type: 'geojson',
-        data: geojsonURL
-      });
-
-      // Load fire icon and add flame symbol layer
-      map.loadImage(flameIconURL, (error, image) => {
-        if (error) throw error;
-        if (!map.hasImage('fire-icon')) map.addImage('fire-icon', image);
-
-        map.addLayer({
-          id: 'fire-symbols',
-          type: 'symbol',
-          source: 'fires',
-          layout: {
-            'icon-image': 'fire-icon',
-            'icon-size': 0.75,
-            'icon-allow-overlap': true
-          }
-        });
-      });
-
-      // Auto-refresh GeoJSON every 5 min
-      setInterval(() => {
-        if (map.getSource('fires')) {
-          map.getSource('fires').setData(geojsonURL);
+        id: 'fire-symbols',
+        type: 'symbol',
+        source: 'fires',
+        layout: {
+          'icon-image': 'fire-icon',
+          'icon-size': 0.075,
+          'icon-allow-overlap': true
         }
-      }, 300000);
-    }
-
-    map.on('load', () => {
-      addLayers();
-    });
-
-    // Handle map style change with re-adding sources/layers
-    document.getElementById('style-selector').addEventListener('change', (e) => {
-      const newStyle = e.target.value;
-      map.setStyle(newStyle);
-
-      map.once('style.load', () => {
-        addLayers();
       });
     });
-  </script>
+
+    map.addSource('active-fires', {
+      type: 'raster',
+      tiles: [
+        'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/wms?service=WMS&version=1.1.0&request=GetMap&layers=public:activefires_current&styles=&format=image/png&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&width=256&height=256'
+      ],
+      tileSize: 256
+    });
+    map.addLayer({
+      id: 'active-fires-layer',
+      type: 'raster',
+      source: 'active-fires',
+      paint: { 'raster-opacity': 0.85 }
+    });
+
+    map.addSource('fire-perimeters', {
+      type: 'raster',
+      tiles: [
+        'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/wms?service=WMS&version=1.1.0&request=GetMap&layers=public:m3_polygons_current&styles=&format=image/png&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&width=256&height=256'
+      ],
+      tileSize: 256
+    });
+    map.addLayer({
+      id: 'fire-perimeters-layer',
+      type: 'raster',
+      source: 'fire-perimeters',
+      paint: { 'raster-opacity': 0.6 }
+    });
+  });
+</script>
 </body>
 </html>
