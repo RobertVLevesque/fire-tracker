@@ -46,37 +46,46 @@
     const geojsonURL = 'https://raw.githubusercontent.com/RobertVLevesque/fire-tracker/main/data/fire_alerts.geojson';
 
     map.on('load', () =>
-      {map.addSource('cwfis-fire-zones', {
+     map.addSource('cwfis-hotspots', {
   type: 'raster',
   tiles: [
-    'https://cwfis.cfs.nrcan.gc.ca/arcgis/services/public/cwfis/en/MapServer/WMSServer?service=WMS&request=GetMap&layers=0&styles=&format=image/png&transparent=true&version=1.1.1&height=256&width=256&srs=EPSG:3857&bbox={bbox-epsg-3857}'
+    'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/wms?' +
+    'service=WMS&version=1.1.0&request=GetMap&layers=public:hotspots_last24hrs' +
+    '&styles=&format=image/png&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}' +
+    '&width=256&height=256'
   ],
   tileSize: 256
 });
 
 map.addLayer({
-  id: 'cwfis-fire-zones-layer',
+  id: 'cwfis-hotspots-layer',
   type: 'raster',
-  source: 'cwfis-fire-zones',
+  source: 'cwfis-hotspots',
   paint: {
-    'raster-opacity': 0.6
+    'raster-opacity': 1
   }
 });
-      map.addSource('fires', {
-        type: 'geojson',
-        data: geojsonURL
-      });
 
-      map.addLayer({
-        id: 'fire-dots',
-        type: 'circle',
-        source: 'fires',
-        paint: {
-          'circle-radius': 5,
-          'circle-color': '#ff5500',
-          'circle-opacity': 0.8
-        }
-      });
+     // Load and use NASA-style flame icon
+map.loadImage(
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Fire_icon.svg/32px-Fire_icon.svg.png',
+  (error, image) => {
+    if (error) throw error;
+    map.addImage('fire-icon', image);
+
+    map.addLayer({
+      id: 'fire-symbols',
+      type: 'symbol',
+      source: 'fires',
+      layout: {
+        'icon-image': 'fire-icon',
+        'icon-size': 0.75,
+        'icon-allow-overlap': true
+      }
+    });
+  }
+);
+
 
 
       setInterval(() => {
