@@ -8,100 +8,121 @@
   <style>
     body { margin: 0; padding: 0; }
     #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-    #style-selector {
+    #controls {
       position: absolute;
       top: 10px;
       right: 10px;
       background: white;
       z-index: 1;
+      padding: 10px;
       font-family: sans-serif;
       font-size: 14px;
       border-radius: 4px;
-      padding: 5px;
       box-shadow: 0 1px 2px rgba(0,0,0,0.1);
     }
   </style>
 </head>
 <body>
 <div id="map"></div>
-<div id="style-selector">
-  Map Style:
-  <select id="style-switcher">
-    <option value="mapbox://styles/mapbox/satellite-streets-v12">Satellite + Streets</option>
-    <option value="mapbox://styles/mapbox/light-v10">Light</option>
-    <option value="mapbox://styles/mapbox/dark-v11">Dark</option>
-    <option value="mapbox://styles/mapbox/outdoors-v11">Outdoors</option>
-    <option value="mapbox://styles/mapbox/streets-v12">Streets</option>
-  </select>
+<div id="controls">
+  <label>Map Style:
+    <select id="style-switcher">
+      <option value="mapbox://styles/mapbox/satellite-streets-v12">Satellite + Streets</option>
+      <option value="mapbox://styles/mapbox/light-v10">Light</option>
+      <option value="mapbox://styles/mapbox/dark-v11">Dark</option>
+      <option value="mapbox://styles/mapbox/outdoors-v11">Outdoors</option>
+      <option value="mapbox://styles/mapbox/streets-v12">Streets</option>
+    </select>
+  </label><br/>
+  <label><input type="checkbox" id="toggle-cwfis" checked /> CWFIS Fire Zones</label><br/>
+  <label><input type="checkbox" id="toggle-perimeters" checked /> CWFIS Perimeters</label>
 </div>
 
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 <script>
-  mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
+mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
 
-  const map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/satellite-streets-v12',
-    center: [-95, 56],
-    zoom: 4
+const fireDataURL = 'https://raw.githubusercontent.com/RobertVLevesque/fire-tracker/main/data/fire_alerts.geojson';
+const iconURL = 'https://upload.wikimedia.org/wikipedia/commons/5/5f/FireIcon.svg';
+
+let map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/satellite-streets-v12',
+  center: [-95, 56],
+  zoom: 4
+});
+
+document.getElementById('style-switcher').addEventListener('change', function () {
+  map.setStyle(this.value);
+});
+
+function addCustomLayers() {
+  // Fires GeoJSON
+  map.addSource('fires', {
+    type: 'geojson',
+    data: fireDataURL
   });
 
-  document.getElementById('style-switcher').addEventListener('change', function() {
-    map.setStyle(this.value);
+  map.addLayer({
+    id: 'fire-icons',
+    type: 'symbol',
+    source: 'fires',
+    layout: {
+      'icon-image': 'fire-icon',
+      'icon-size': 0.05,
+      'icon-allow-overlap': true
+    }
   });
 
-  map.on('style.load', () => {
-    const geojsonURL = 'https://raw.githubusercontent.com/RobertVLevesque/fire-tracker/main/data/fire_alerts.geojson';
-
-    map.addSource('fires', {
-      type: 'geojson',
-      data: geojsonURL
-    });
-
-    map.loadImage('https://upload.wikimedia.org/wikipedia/commons/5/5f/FireIcon.svg', (error, image) => {
-      if (error) throw error;
-      map.addImage('fire-icon', image, { sdf: true });
-
-      map.addLayer({
-        id: 'fire-symbols',
-        type: 'symbol',
-        source: 'fires',
-        layout: {
-          'icon-image': 'fire-icon',
-          'icon-size': 0.075,
-          'icon-allow-overlap': true
-        }
-      });
-    });
-
-    map.addSource('active-fires', {
-      type: 'raster',
-      tiles: [
-        'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/wms?service=WMS&version=1.1.0&request=GetMap&layers=public:activefires_current&styles=&format=image/png&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&width=256&height=256'
-      ],
-      tileSize: 256
-    });
-    map.addLayer({
-      id: 'active-fires-layer',
-      type: 'raster',
-      source: 'active-fires',
-      paint: { 'raster-opacity': 0.85 }
-    });
-
-    map.addSource('fire-perimeters', {
-      type: 'raster',
-      tiles: [
-        'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/wms?service=WMS&version=1.1.0&request=GetMap&layers=public:m3_polygons_current&styles=&format=image/png&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&width=256&height=256'
-      ],
-      tileSize: 256
-    });
-    map.addLayer({
-      id: 'fire-perimeters-layer',
-      type: 'raster',
-      source: 'fire-perimeters',
-      paint: { 'raster-opacity': 0.6 }
-    });
+  // CWFIS Fire Zones (Raster)
+  map.addSource('cwfis-zones', {
+    type: 'raster',
+    tiles: ['https://cwfis.cfs.nrcan.gc.ca/arcgis/services/public/cwfis/en/MapServer/WmsServer?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=0&STYLES=&FORMAT=image/png&TRANSPARENT=true&SRS=EPSG:3857&BBOX={bbox-epsg-3857}&WIDTH=256&HEIGHT=256'],
+    tileSize: 256
   });
+
+  map.addLayer({
+    id: 'cwfis-zones-layer',
+    type: 'raster',
+    source: 'cwfis-zones',
+    paint: { 'raster-opacity': 0.5 }
+  });
+
+  // CWFIS Perimeters (WMS Layer 1)
+  map.addSource('cwfis-perimeters', {
+    type: 'raster',
+    tiles: ['https://cwfis.cfs.nrcan.gc.ca/arcgis/services/public/cwfis/en/MapServer/WmsServer?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=1&STYLES=&FORMAT=image/png&TRANSPARENT=true&SRS=EPSG:3857&BBOX={bbox-epsg-3857}&WIDTH=256&HEIGHT=256'],
+    tileSize: 256
+  });
+
+  map.addLayer({
+    id: 'cwfis-perimeters-layer',
+    type: 'raster',
+    source: 'cwfis-perimeters',
+    paint: { 'raster-opacity': 0.7 }
+  });
+}
+
+function toggleLayer(layerId, visible) {
+  if (map.getLayer(layerId)) {
+    map.setLayoutProperty(layerId, 'visibility', visible ? 'visible' : 'none');
+  }
+}
+
+map.on('style.load', () => {
+  map.loadImage(iconURL, (error, image) => {
+    if (error) throw error;
+    if (!map.hasImage('fire-icon')) map.addImage('fire-icon', image);
+    addCustomLayers();
+  });
+});
+
+document.getElementById('toggle-cwfis').addEventListener('change', (e) => {
+  toggleLayer('cwfis-zones-layer', e.target.checked);
+});
+document.getElementById('toggle-perimeters').addEventListener('change', (e) => {
+  toggleLayer('cwfis-perimeters-layer', e.target.checked);
+});
 </script>
 </body>
 </html>
