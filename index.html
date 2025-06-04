@@ -45,23 +45,8 @@
 
     const geojsonURL = 'https://raw.githubusercontent.com/RobertVLevesque/fire-tracker/main/data/fire_alerts.geojson';
 
-    map.on('load', () => {
-      map.addSource('fires', {
-        type: 'geojson',
-        data: geojsonURL
-      });
-
-      map.addLayer({
-        id: 'fire-dots',
-        type: 'circle',
-        source: 'fires',
-        paint: {
-          'circle-radius': 5,
-          'circle-color': '#ff5500',
-          'circle-opacity': 0.8
-        }
-      });
-map.addSource('cwfis-fire-zones', {
+    map.on('load', () =>
+      {map.addSource('cwfis-fire-zones', {
   type: 'raster',
   tiles: [
     'https://cwfis.cfs.nrcan.gc.ca/arcgis/services/public/cwfis/en/MapServer/WMSServer?service=WMS&request=GetMap&layers=0&styles=&format=image/png&transparent=true&version=1.1.1&height=256&width=256&srs=EPSG:3857&bbox={bbox-epsg-3857}'
@@ -77,6 +62,22 @@ map.addLayer({
     'raster-opacity': 0.6
   }
 });
+      map.addSource('fires', {
+        type: 'geojson',
+        data: geojsonURL
+      });
+
+      map.addLayer({
+        id: 'fire-dots',
+        type: 'circle',
+        source: 'fires',
+        paint: {
+          'circle-radius': 5,
+          'circle-color': '#ff5500',
+          'circle-opacity': 0.8
+        }
+      });
+
 
       setInterval(() => {
         map.getSource('fires').setData(geojsonURL);
