@@ -8,25 +8,28 @@
   <style>
     body { margin: 0; padding: 0; }
     #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-    .mapboxgl-ctrl-top-right { top: 10px; right: 10px; }
-    #layer-controls {
+    .map-overlay {
       position: absolute;
       top: 10px;
       right: 10px;
-      background: white;
-      padding: 8px;
+      background: rgba(255,255,255,0.9);
+      padding: 10px;
       font-family: sans-serif;
-      border-radius: 4px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
       z-index: 1;
     }
   </style>
 </head>
 <body>
   <div id="map"></div>
-  <div id="layer-controls">
-    <label><input type="checkbox" id="toggle-fire-zones" checked /> CWFIS Fire Zones</label><br />
-    <label><input type="checkbox" id="toggle-fire-perimeters" checked /> CWFIS Perimeters</label>
+  <div class="map-overlay">
+    <label for="style-selector">Map Style:</label>
+    <select id="style-selector">
+      <option value="mapbox://styles/mapbox/satellite-streets-v12" selected>Satellite + Streets</option>
+      <option value="mapbox://styles/mapbox/dark-v11">Dark</option>
+      <option value="mapbox://styles/mapbox/light-v11">Light</option>
+      <option value="mapbox://styles/mapbox/streets-v12">Streets</option>
+      <option value="mapbox://styles/mapbox/outdoors-v12">Outdoors</option>
+    </select>
   </div>
 
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
@@ -34,77 +37,78 @@
     mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
 
     const geojsonURL = 'https://raw.githubusercontent.com/RobertVLevesque/fire-tracker/main/data/fire_alerts.geojson';
+const flameIconURL = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/FireIcon.svg/120px-FireIcon.svg.png';
 
-    const map = new mapboxgl.Map({
+    let map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/satellite-streets-v12',
       center: [-95, 56],
       zoom: 4
     });
 
-    map.on('load', () => {
-      // Add CWFIS raster layer - Fire Zones
-      map.addSource('cwfis-fire-zones', {
+    function addLayers() {
+      // Add CWFIS hotspots layer
+      map.addSource('cwfis-hotspots', {
         type: 'raster',
         tiles: [
-          'https://cwfis.cfs.nrcan.gc.ca/arcgis/services/public/cwfis/en/MapServer/WMSServer?service=WMS&request=GetMap&layers=0&format=image/png&transparent=true&width=256&height=256&srs=EPSG:3857&bbox={bbox-epsg-3857}'
+          'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/wms?' +
+          'service=WMS&version=1.1.0&request=GetMap&layers=public:hotspots_last24hrs' +
+          '&styles=&format=image/png&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}' +
+          '&width=256&height=256'
         ],
         tileSize: 256
       });
 
       map.addLayer({
-        id: 'cwfis-fire-zones-layer',
+        id: 'cwfis-hotspots-layer',
         type: 'raster',
-        source: 'cwfis-fire-zones',
-        paint: { 'raster-opacity': 0.6 }
+        source: 'cwfis-hotspots',
+        paint: { 'raster-opacity': 1 }
       });
 
-      // Add CWFIS raster layer - Perimeters
-      map.addSource('cwfis-fire-perimeters', {
-        type: 'raster',
-        tiles: [
-          'https://cwfis.cfs.nrcan.gc.ca/arcgis/services/public/cwfis/en/MapServer/WMSServer?service=WMS&request=GetMap&layers=6&format=image/png&transparent=true&width=256&height=256&srs=EPSG:3857&bbox={bbox-epsg-3857}'
-        ],
-        tileSize: 256
-      });
-
-      map.addLayer({
-        id: 'cwfis-fire-perimeters-layer',
-        type: 'raster',
-        source: 'cwfis-fire-perimeters',
-        paint: { 'raster-opacity': 0.7 }
-      });
-
-      // Add fire alert points as custom icons
+      // Add GeoJSON source for fires
       map.addSource('fires', {
         type: 'geojson',
         data: geojsonURL
       });
 
-      map.loadImage('https://upload.wikimedia.org/wikipedia/commons/6/6b/FireIcon.svg', (error, image) => {
+      // Load fire icon and add flame symbol layer
+      map.loadImage(flameIconURL, (error, image) => {
         if (error) throw error;
-        map.addImage('fire-icon', image);
+        if (!map.hasImage('fire-icon')) map.addImage('fire-icon', image);
 
         map.addLayer({
-          id: 'fire-icons',
+          id: 'fire-symbols',
           type: 'symbol',
           source: 'fires',
           layout: {
             'icon-image': 'fire-icon',
-            'icon-size': 0.05
+            'icon-size': 0.75,
+            'icon-allow-overlap': true
           }
         });
       });
 
-      // Toggle logic
-      document.getElementById('toggle-fire-zones').addEventListener('change', (e) => {
-        map.setLayoutProperty('cwfis-fire-zones-layer', 'visibility', e.target.checked ? 'visible' : 'none');
-      });
+      // Auto-refresh GeoJSON every 5 min
+      setInterval(() => {
+        if (map.getSource('fires')) {
+          map.getSource('fires').setData(geojsonURL);
+        }
+      }, 300000);
+    }
 
-      document.getElementById('toggle-fire-perimeters').addEventListener('change', (e) => {
-        map.setLayoutProperty('cwfis-fire-perimeters-layer', 'visibility', e.target.checked ? 'visible' : 'none');
-      });
+    map.on('load', () => {
+      addLayers();
+    });
 
+    // Handle map style change with re-adding sources/layers
+    document.getElementById('style-selector').addEventListener('change', (e) => {
+      const newStyle = e.target.value;
+      map.setStyle(newStyle);
+
+      map.once('style.load', () => {
+        addLayers();
+      });
     });
   </script>
 </body>
