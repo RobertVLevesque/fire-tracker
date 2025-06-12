@@ -2,116 +2,125 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Live Fire Tracker w/ CWFIS Perimeters</title>
+  <title>Live Fire Tracker with Perimeters</title>
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css" rel="stylesheet" />
   <style>
-    body, html { margin:0; padding:0; height:100%; }
-    #map { position:absolute; top:0; right:0; bottom:0; left:0; }
-    #menu { position:absolute; top:10px; left:10px; padding:10px; background:white; z-index:1; }
+    body, html { margin: 0; padding: 0; height: 100%; }
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    #menu {
+      position: absolute;
+      z-index: 1;
+      background: white;
+      padding: 10px;
+      top: 10px;
+      left: 10px;
+      font-family: sans-serif;
+    }
   </style>
 </head>
 <body>
 <div id="menu">
   <strong>Show:</strong><br>
-  <label><input type="checkbox" value="all" checked onclick="setFilter('all')"> All</label><br>
-  <label><input type="checkbox" value="Out of Control" onclick="toggle('Out of Control')"> Out of Control</label><br>
-  <label><input type="checkbox" value="Being Held" onclick="toggle('Being Held')"> Being Held</label><br>
-  <label><input type="checkbox" value="Under Control" onclick="toggle('Under Control')"> Under Control</label>
+  <label><input type="checkbox" value="all" checked onchange="setFilter('all')"> All</label><br>
+  <label><input type="checkbox" value="Out of Control" onchange="toggle('Out of Control')"> Out of Control</label><br>
+  <label><input type="checkbox" value="Being Held" onchange="toggle('Being Held')"> Being Held</label><br>
+  <label><input type="checkbox" value="Under Control" onchange="toggle('Under Control')"> Under Control</label>
 </div>
 <div id="map"></div>
 
 <script>
     mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
-  
-  const map = new mapboxgl.Map({
+
+const map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/satellite-streets-v11',
-  center: [-100,55], zoom: 3.5
+  center: [-100, 55],
+  zoom: 3.5
 });
+
+const statusFilters = {
+  'Out of Control': true,
+  'Being Held': true,
+  'Under Control': true,
+  'all': true
+};
+
+function toggle(status) {
+  statusFilters[status] = !statusFilters[status];
+  statusFilters['all'] = false;
+  applyFilters();
+}
+
+function setFilter(val) {
+  if (val === 'all') {
+    Object.keys(statusFilters).forEach(k => statusFilters[k] = (k === 'all'));
+  }
+  applyFilters();
+}
+
+function applyFilters() {
+  const visibleStatuses = Object.keys(statusFilters)
+    .filter(k => statusFilters[k] && k !== 'all');
+  const filter = statusFilters['all'] ? null : ['in', ['get', 'status'], ['literal', visibleStatuses]];
+  map.setFilter('fire-points', filter);
+}
 
 map.on('load', async () => {
-  // 1. Load your fire alerts
-  const fires = await fetch('data/fire_alerts.geojson').then(r => r.json());
-  map.addSource('fires', { type:'geojson', data:fires});
-  map.addLayer({
-    id: 'fire-points',
-    type: 'circle',
-    source: 'fires',
-    paint: {
-      'circle-radius': 6,
-      'circle-color': [
-        'match', ['get','status'],
-        'Out of Control', '#b10026',
-        'Being Held',     '#ff7f00',
-        'Under Control',  '#7fcdbb',
-        '#aaaaaa'
-      ],
-      'circle-stroke-width': 1,
-      'circle-stroke-color': '#000'
-    }
-  });
+  try {
+    // Load fire points
+    const fireData = await fetch('data/fire_alerts.geojson').then(res => res.json());
+    map.addSource('fires', { type: 'geojson', data: fireData });
+    map.addLayer({
+      id: 'fire-points',
+      type: 'circle',
+      source: 'fires',
+      paint: {
+        'circle-radius': 6,
+        'circle-color': [
+          'match', ['get', 'status'],
+          'Out of Control', '#e31a1c',
+          'Being Held', '#ff7f00',
+          'Under Control', '#1f78b4',
+          '#cccccc'
+        ],
+        'circle-stroke-color': '#000',
+        'circle-stroke-width': 1
+      }
+    });
 
-  // 2. Load CWFIS perimeter polygons via WFS
-  const wfsUrl = "https://cwfis.cfs.nrcan.gc.ca/geoserver/public/ows?" +
-    "service=WFS&version=1.0.0&request=GetFeature&" +
-    "typeName=public:m3_polygons_current&" +
-    "outputFormat=application/json";
-  const perims = await fetch(wfsUrl).then(r => r.json());
-  map.addSource('perims', { type:'geojson', data:perims });
-  map.addLayer({
-    id: 'fire-polygons',
-    type: 'fill',
-    source: 'perims',
-    paint: {
-      'fill-color': '#f03b20',
-      'fill-opacity': 0.3
-    }
-  });
+    map.on('click', 'fire-points', (e) => {
+      const p = e.features[0].properties;
+      new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(`<strong>${p.name}</strong><br>Status: ${p.status}<br>Size: ${p.size} ha`)
+        .addTo(map);
+    });
 
-  window.statusFilters = {
-    'Out of Control': true,
-    'Being Held': true,
-    'Under Control': true,
-    'all': true
-  };
+    // Load perimeter polygons from CWFIS
+    const perimeterURL = 'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/ows?' +
+      'service=WFS&version=1.0.0&request=GetFeature&' +
+      'typeName=public:m3_polygons_current&' +
+      'outputFormat=application/json';
+    const perimData = await fetch(perimeterURL).then(res => res.json());
 
-  window.toggle = function(status) {
-    statusFilters[status] = !statusFilters[status];
-    statusFilters['all'] = false;
+    map.addSource('perims', { type: 'geojson', data: perimData });
+    map.addLayer({
+      id: 'fire-polygons',
+      type: 'fill',
+      source: 'perims',
+      paint: {
+        'fill-color': '#f03b20',
+        'fill-opacity': 0.25
+      }
+    });
+
     applyFilters();
-  };
-
-  window.setFilter = function(val) {
-    if(val === 'all') {
-      Object.keys(statusFilters).forEach(k => statusFilters[k] = (k==='all'));
-    }
-    applyFilters();
-  };
-
-  function applyFilters() {
-    const active = Object.keys(statusFilters).filter(k => statusFilters[k] && k !== 'all');
-    let filterExp = ["in", ["get", "status"], ["literal", active]];
-    if(statusFilters['all']) filterExp = null;
-    map.setFilter('fire-points', filterExp);
-    // no perim status filter since CWFIS polygons have built-in control status
+  } catch (err) {
+    console.error('Error loading layers:', err);
+    alert("Something went wrong loading map layers. See console for details.");
   }
-
-  applyFilters();
-  map.on('click', 'fire-points', e => {
-    const p = e.features[0].properties;
-    new mapboxgl.Popup()
-      .setLngLat(e.features[0].geometry.coordinates)
-      .setHTML(`<strong>${p.name}</strong><br>Status: ${p.status}<br>Size: ${p.size} ha`)
-      .addTo(map);
-  });
 });
 </script>
-</body>
-</html>
-
-
-    });
-  </script>
 </body>
 </html>
