@@ -60,94 +60,80 @@
       center: [-106.3, 56.1],
       zoom: 4
     });
+<script>
+let fireData = [];
+let map;
+let markers = [];
 
-    let fireData;
+async function loadData() {
+  try {
+    const res = await fetch('data/fire_alerts.geojson');
+    const geojson = await res.json();
+    fireData = geojson.features;
+    initMap();
+    applyFilters();
+  } catch (err) {
+    console.error("🔥 Error loading GeoJSON:", err);
+    alert("Failed to load fire data.");
+  }
+}
 
-    async function loadData() {
-      const response = await fetch('data/fire_alerts.geojson');
-      fireData = await response.json();
-      updateMap();
+function initMap() {
+  mapboxgl.accessToken = 'YOUR_MAPBOX_TOKEN';
+  map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/satellite-streets-v12',
+    center: [-100, 55],
+    zoom: 4
+  });
+}
+
+function applyFilters() {
+  // Clear existing markers
+  markers.forEach(m => m.remove());
+  markers = [];
+
+  const status = document.getElementById('status').value;
+  const agency = document.getElementById('agency').value.trim().toLowerCase();
+  const minSize = parseFloat(document.getElementById('minSize').value) || 0;
+  const maxSize = parseFloat(document.getElementById('maxSize').value) || 999999;
+
+  fireData.forEach(feature => {
+    const { coordinates } = feature.geometry;
+    const props = feature.properties;
+
+    if (
+      (status === 'All' || props.status?.toLowerCase() === status.toLowerCase()) &&
+      (agency === '' || props.agency?.toLowerCase() === agency) &&
+      props.size >= minSize &&
+      props.size <= maxSize
+    ) {
+      const sizeFactor = Math.sqrt(props.size) / 5; // scale icon size
+      const el = document.createElement('div');
+      el.className = 'fire-icon';
+      el.style.width = `${sizeFactor + 10}px`;
+      el.style.height = `${sizeFactor + 10}px`;
+      el.style.background = 'red';
+      el.style.borderRadius = '50%';
+      el.style.border = '2px solid white';
+
+      const marker = new mapboxgl.Marker(el)
+        .setLngLat(coordinates)
+        .setPopup(new mapboxgl.Popup().setHTML(`
+          <strong>${props.name || 'Unknown Fire'}</strong><br/>
+          Status: ${props.status || 'N/A'}<br/>
+          Size: ${props.size?.toLocaleString()} ha<br/>
+          Agency: ${props.agency || 'N/A'}<br/>
+          Updated: ${props.updated || 'N/A'}<br/>
+          Source: ${props.source || 'CWFIS'}<br/>
+        `))
+        .addTo(map);
+
+      markers.push(marker);
     }
+  });
+}
 
-    function updateMap() {
-      const statusFilter = document.getElementById('status-filter').value;
-      const agencyFilter = document.getElementById('agency-filter').value.toLowerCase();
-      const minSize = parseFloat(document.getElementById('min-size').value);
-      const maxSize = parseFloat(document.getElementById('max-size').value);
-
-      const filteredFeatures = fireData.features.filter(f => {
-        const props = f.properties;
-        const statusMatch = (statusFilter === "All" || props.status === statusFilter);
-        const agencyMatch = !agencyFilter || (props.agency && props.agency.toLowerCase().includes(agencyFilter));
-        const size = parseFloat(props.size || 0);
-        const sizeMatch = size >= minSize && size <= maxSize;
-        return statusMatch && agencyMatch && sizeMatch;
-      });
-
-      const geojson = { ...fireData, features: filteredFeatures };
-
-      if (map.getSource('fires')) {
-        map.getSource('fires').setData(geojson);
-      } else {
-        map.addSource('fires', { type: 'geojson', data: geojson });
-
-        map.addLayer({
-          id: 'fire-locations',
-          type: 'circle',
-          source: 'fires',
-          paint: {
-            'circle-radius': [
-              'interpolate', ['linear'], ['to-number', ['get', 'size']],
-              0, 4,
-              1000, 6,
-              5000, 10,
-              10000, 14
-            ],
-            'circle-color': [
-              'match',
-              ['get', 'status'],
-              'Out of Control', '#ff0000',
-              'Being Held', '#ff8800',
-              'Under Control', '#00ccff',
-              '100% contained', '#00ff00',
-              'Prescribed', '#ffaa00',
-              '#999999'
-            ],
-            'circle-stroke-width': 1,
-            'circle-stroke-color': '#000000'
-          }
-        });
-
-        map.on('click', 'fire-locations', (e) => {
-          const props = e.features[0].properties;
-          const coords = e.features[0].geometry.coordinates;
-          const desc = `
-            <strong>${props.name || 'Unnamed Fire'}</strong><br/>
-            Status: ${props.status}<br/>
-            Size: ${props.size} ha<br/>
-            Agency: ${props.agency}<br/>
-            Updated: ${props.updated}<br/>
-            Province: ${props.province || '—'}<br/>
-            Notes: ${props.notes || '—'}
-          `;
-          new mapboxgl.Popup().setLngLat(coords).setHTML(desc).addTo(map);
-        });
-
-        map.on('mouseenter', 'fire-locations', () => {
-          map.getCanvas().style.cursor = 'pointer';
-        });
-
-        map.on('mouseleave', 'fire-locations', () => {
-          map.getCanvas().style.cursor = '';
-        });
-      }
-    }
-
-    ['status-filter', 'agency-filter', 'min-size', 'max-size'].forEach(id =>
-      document.getElementById(id).addEventListener('input', updateMap)
-    );
-
-    map.on('load', loadData);
-  </script>
-</body>
-</html>
+window.onload = loadData;
+</script>
+   
