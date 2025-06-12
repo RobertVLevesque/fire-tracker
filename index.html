@@ -3,138 +3,145 @@
 <head>
   <meta charset="utf-8" />
   <title>Live Fire Tracker</title>
-  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
   <style>
     body { margin: 0; padding: 0; }
     #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-    .legend {
-      background: white;
-      padding: 10px;
+    .filter-ui {
       position: absolute;
-      z-index: 1;
-      font-family: Arial, sans-serif;
-      font-size: 14px;
       top: 10px;
       left: 10px;
+      background: white;
+      padding: 10px;
+      font-family: sans-serif;
+      font-size: 13px;
       border-radius: 4px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+      z-index: 1;
     }
   </style>
 </head>
 <body>
 <div id="map"></div>
-<div class="legend">
-  <strong>Show:</strong><br>
-  <label><input type="checkbox" id="toggle-all" checked> All</label><br>
-  <label><input type="checkbox" class="status-toggle" value="OC" checked> Out of Control</label><br>
-  <label><input type="checkbox" class="status-toggle" value="BH" checked> Being Held</label><br>
-  <label><input type="checkbox" class="status-toggle" value="UC" checked> Under Control</label>
+<div class="filter-ui">
+  <strong>Show:</strong><br />
+  <label><input type="checkbox" id="all" checked> All</label><br />
+  <label><input type="checkbox" class="filter" value="Out of Control"> Out of Control</label><br />
+  <label><input type="checkbox" class="filter" value="Being Held"> Being Held</label><br />
+  <label><input type="checkbox" class="filter" value="Under Control"> Under Control</label><br />
 </div>
 
 <script>
     mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
-  const map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/satellite-streets-v12',
-    center: [-105, 55],
-    zoom: 4
+
+const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/satellite-v9',
+  center: [-100, 55],
+  zoom: 4
+});
+
+const statusColors = {
+  'Out of Control': '#ff0000',
+  'Being Held': '#ff9900',
+  'Under Control': '#00cc00',
+  'Unknown': '#999999'
+};
+
+function loadFirePoints() {
+  return fetch('https://raw.githubusercontent.com/RobertVLevesque/fire-tracker/main/data/fire_alerts.geojson')
+    .then(res => res.json());
+}
+
+function loadPerimeters() {
+  const url = 'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/ows?' +
+              'service=WFS&version=1.0.0&request=GetFeature&' +
+              'typeName=public:m3_polygons_current&outputFormat=application/json';
+  return fetch(url).then(res => res.json());
+}
+
+function applyPointLayer(data) {
+  map.addSource('fires', { type: 'geojson', data });
+  map.addLayer({
+    id: 'fires-layer',
+    type: 'circle',
+    source: 'fires',
+    paint: {
+      'circle-radius': 6,
+      'circle-color': [
+        'match',
+        ['get', 'status'],
+        'Out of Control', statusColors['Out of Control'],
+        'Being Held', statusColors['Being Held'],
+        'Under Control', statusColors['Under Control'],
+        statusColors['Unknown']
+      ],
+      'circle-stroke-color': '#000',
+      'circle-stroke-width': 1
+    }
   });
 
-  const colorMap = {
-    'OC': '#ff0000',
-    'BH': '#ffa500',
-    'UC': '#00cc66'
-  };
+  map.on('click', 'fires-layer', (e) => {
+    const props = e.features[0].properties;
+    new mapboxgl.Popup()
+      .setLngLat(e.lngLat)
+      .setHTML(`
+        <strong>${props.name || 'Unnamed Fire'}</strong><br />
+        Status: ${props.status || 'Unknown'}<br />
+        Size: ${props.size || 0} ha<br />
+        Agency: ${props.agency || 'N/A'}<br />
+        Source: ${props.source || 'N/A'}<br />
+        Updated: ${props.updated || ''}
+      `)
+      .addTo(map);
+  });
+}
 
-  const statusNames = {
-    'OC': 'Out of Control',
-    'BH': 'Being Held',
-    'UC': 'Under Control'
-  };
-
-  async function loadMapLayers() {
-    try {
-      // Point layer (fire alerts)
-      const response = await fetch('data/fire_alerts.geojson');
-      const data = await response.json();
-
-      map.on('load', () => {
-        map.addSource('fires', { type: 'geojson', data });
-
-        // Add one layer per status
-        for (const [code, color] of Object.entries(colorMap)) {
-          map.addLayer({
-            id: `fire-${code}`,
-            type: 'circle',
-            source: 'fires',
-            paint: {
-              'circle-radius': 6,
-              'circle-color': color,
-              'circle-opacity': 0.8
-            },
-            filter: ['==', ['get', 'status'], statusNames[code]]
-          });
-        }
-
-        // Load polygon perimeters
-        const perimeterURL = 'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/ows?' +
-          'service=WFS&version=1.0.0&request=GetFeature&' +
-          'typeName=public:m3_polygons_current&bbox=-141,41,-52,84&outputFormat=application/json';
-
-        fetch(perimeterURL)
-          .then(resp => resp.json())
-          .then(perimData => {
-            map.addSource('perims', { type: 'geojson', data: perimData });
-            map.addLayer({
-              id: 'fire-perimeters',
-              type: 'fill',
-              source: 'perims',
-              paint: {
-                'fill-color': '#ff3b20',
-                'fill-opacity': 0.25
-              }
-            });
-          });
-
-        applyFilters();
-      });
-    } catch (err) {
-      console.error('Error loading map layers:', err);
-      alert("Something went wrong loading map layers. See console for details.");
+function applyPerimeterLayer(perimData) {
+  map.addSource('perims', { type: 'geojson', data: perimData });
+  map.addLayer({
+    id: 'perim-layer',
+    type: 'fill',
+    source: 'perims',
+    paint: {
+      'fill-color': '#f03b20',
+      'fill-opacity': 0.2
     }
-  }
+  });
+}
 
-  function applyFilters() {
-    const checkboxes = document.querySelectorAll('.status-toggle');
-    const activeStatuses = [...checkboxes].filter(cb => cb.checked).map(cb => cb.value);
+function updateFilters() {
+  const checked = Array.from(document.querySelectorAll('.filter:checked')).map(cb => cb.value);
 
-    for (const code of Object.keys(colorMap)) {
-      const visible = activeStatuses.includes(code);
-      if (map.getLayer(`fire-${code}`)) {
-        map.setLayoutProperty(`fire-${code}`, 'visibility', visible ? 'visible' : 'none');
-      }
-    }
-  }
+  map.setFilter('fires-layer', [
+    'any',
+    ...checked.map(status => ['==', ['get', 'status'], status])
+  ]);
+}
 
-  // Filter interaction
-  document.querySelectorAll('.status-toggle').forEach(cb => {
-    cb.addEventListener('change', () => {
-      const all = document.getElementById('toggle-all');
-      const toggles = [...document.querySelectorAll('.status-toggle')];
-      all.checked = toggles.every(t => t.checked);
-      applyFilters();
-    });
+document.addEventListener('DOMContentLoaded', async () => {
+  map.on('load', async () => {
+    const fireData = await loadFirePoints();
+    const perimeterData = await loadPerimeters();
+
+    applyPointLayer(fireData);
+    applyPerimeterLayer(perimeterData);
+    updateFilters();
   });
 
-  document.getElementById('toggle-all').addEventListener('change', e => {
+  document.querySelectorAll('input.filter').forEach(cb => {
+    cb.addEventListener('change', updateFilters);
+  });
+
+  document.getElementById('all').addEventListener('change', e => {
     const checked = e.target.checked;
-    document.querySelectorAll('.status-toggle').forEach(cb => cb.checked = checked);
-    applyFilters();
+    document.querySelectorAll('input.filter').forEach(cb => {
+      cb.checked = checked;
+    });
+    updateFilters();
   });
-
-  loadMapLayers();
+});
 </script>
 </body>
 </html>
