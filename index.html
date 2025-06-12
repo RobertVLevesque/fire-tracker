@@ -98,11 +98,12 @@ map.on('load', async () => {
     });
 
     // Load perimeter polygons from CWFIS
-    const perimeterURL = 'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/ows?' +
-      'service=WFS&version=1.0.0&request=GetFeature&' +
-      'typeName=public:m3_polygons_current&' +
-      'outputFormat=application/json';
-    const perimData = await fetch(perimeterURL).then(res => res.json());
+const perimeterURL = 'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/ows?' +
+  'service=WFS&version=1.0.0&request=GetFeature&' +
+  'typeName=public:m3_polygons_current&' +
+  'bbox=-141,41,-52,84&' + // Canada bounding box (West, South, East, North)
+  'outputFormat=application/json';
+
 
     map.addSource('perims', { type: 'geojson', data: perimData });
     map.addLayer({
