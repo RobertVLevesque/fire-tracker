@@ -3,76 +3,104 @@
 <head>
   <meta charset="utf-8" />
   <title>Live Fire Tracker</title>
-  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet" />
   <style>
     body { margin: 0; padding: 0; }
     #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    #filters {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: white;
+      padding: 10px;
+      z-index: 1;
+      font-family: sans-serif;
+    }
+    #filters label {
+      display: block;
+      margin-bottom: 5px;
+    }
   </style>
 </head>
 <body>
-  <div id="map"></div>
-  <script>
+
+<div id="filters">
+  <label><input type="radio" name="status" value="all" checked /> Show All</label>
+  <label><input type="radio" name="status" value="Out of Control" /> Out of Control</label>
+  <label><input type="radio" name="status" value="Being Held" /> Being Held</label>
+  <label><input type="radio" name="status" value="Under Control" /> Under Control</label>
+</div>
+
+<div id="map"></div>
+
+<script>
     mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
 
-    const map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/satellite-streets-v12',
-      center: [-106.3, 56.1],
-      zoom: 4
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/satellite-streets-v12',
+    center: [-105, 55],
+    zoom: 4,
+    projection: 'globe'
+  });
+
+  map.on('load', () => {
+    // Add perimeter source
+    map.addSource('perimeters', {
+      type: 'geojson',
+      data: 'https://cwfis.cfs.nrcan.gc.ca/data/geojson/perimeter_active.json'
     });
 
-    map.on('load', () => {
-      map.addSource('fires', {
-        type: 'geojson',
-        data: 'data/fire_alerts.geojson'
-      });
+    // Add filled layer
+    map.addLayer({
+      id: 'perimeter-fill',
+      type: 'fill',
+      source: 'perimeters',
+      paint: {
+        'fill-color': [
+          'match',
+          ['get', 'status'],
+          'Out of Control', '#e60000',
+          'Being Held', '#ff9900',
+          'Under Control', '#33cc33',
+          '#999999'
+        ],
+        'fill-opacity': 0.3
+      }
+    });
 
-      map.addLayer({
-        id: 'fire-locations',
-        type: 'circle',
-        source: 'fires',
-        paint: {
-          'circle-radius': 6,
-          'circle-color': [
-            'match',
-            ['get', 'status'],
-            '100% contained', '#00ff00',
-            'Prescribed', '#ffaa00',
-            'Out of Control', '#ff0000',
-            '#ff8800' // default
-          ],
-          'circle-stroke-width': 1,
-          'circle-stroke-color': '#000000'
+    // Add outline layer
+    map.addLayer({
+      id: 'perimeter-outline',
+      type: 'line',
+      source: 'perimeters',
+      paint: {
+        'line-color': '#000000',
+        'line-width': 1
+      }
+    });
+
+    // Filter control
+    document.querySelectorAll('input[name="status"]').forEach((el) => {
+      el.addEventListener('change', (e) => {
+        const val = e.target.value;
+        if (val === 'all') {
+          map.setFilter('perimeter-fill', null);
+          map.setFilter('perimeter-outline', null);
+        } else {
+          map.setFilter('perimeter-fill', ['==', ['get', 'status'], val]);
+          map.setFilter('perimeter-outline', ['==', ['get', 'status'], val]);
         }
       });
+    });
+  });
+</script>
 
-      // Optional: Popup on click
-      map.on('click', 'fire-locations', (e) => {
-        const props = e.features[0].properties;
-        const coordinates = e.features[0].geometry.coordinates;
-        const description = `
-          <strong>${props.name || 'Unnamed Fire'}</strong><br/>
-          Status: ${props.status}<br/>
-          Size: ${props.size} ha<br/>
-          Agency: ${props.agency}<br/>
-          Updated: ${props.updated}
-        `;
+</body>
+</html>
 
-        new mapboxgl.Popup()
-          .setLngLat(coordinates)
-          .setHTML(description)
-          .addTo(map);
-      });
-
-      map.on('mouseenter', 'fire-locations', () => {
-        map.getCanvas().style.cursor = 'pointer';
-      });
-
-      map.on('mouseleave', 'fire-locations', () => {
-        map.getCanvas().style.cursor = '';
-      });
     });
   </script>
 </body>
