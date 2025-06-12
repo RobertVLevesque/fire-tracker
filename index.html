@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8" />
@@ -73,21 +73,52 @@ const flameIconURL = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/
       });
 
       // Load fire icon and add flame symbol layer
-      map.loadImage(flameIconURL, (error, image) => {
-        if (error) throw error;
-        if (!map.hasImage('fire-icon')) map.addImage('fire-icon', image);
+     map.loadImage(flameIconURL, (error, image) => {
+  if (error) throw error;
+  if (!map.hasImage('fire-icon')) map.addImage('fire-icon', image);
 
-        map.addLayer({
-          id: 'fire-symbols',
-          type: 'symbol',
-          source: 'fires',
-          layout: {
-            'icon-image': 'fire-icon',
-            'icon-size': 0.75,
-            'icon-allow-overlap': true
-          }
-        });
-      });
+  map.addLayer({
+    id: 'fire-symbols',
+    type: 'symbol',
+    source: 'fires',
+    layout: {
+      'icon-image': 'fire-icon',
+      'icon-size': 0.75,
+      'icon-allow-overlap': true
+    }
+  });
+
+  // Add popup on click
+  map.on('click', 'fire-symbols', (e) => {
+    const props = e.features[0].properties;
+    const name = props.name || 'Unnamed Fire';
+    const status = props.status || 'Unknown';
+    const agency = props.agency || 'N/A';
+    const size = props.size || '0';
+    const updated = props.updated || 'N/A';
+
+    new mapboxgl.Popup()
+      .setLngLat(e.lngLat)
+      .setHTML(
+        `<strong>${name}</strong><br>` +
+        `Status: ${status}<br>` +
+        `Agency: ${agency}<br>` +
+        `Size: ${size} ha<br>` +
+        `Updated: ${updated}`
+      )
+      .addTo(map);
+  });
+
+  // Change cursor on hover
+  map.on('mouseenter', 'fire-symbols', () => {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  map.on('mouseleave', 'fire-symbols', () => {
+    map.getCanvas().style.cursor = '';
+  });
+});
+
 
       // Auto-refresh GeoJSON every 5 min
       setInterval(() => {
