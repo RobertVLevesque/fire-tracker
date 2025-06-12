@@ -1,79 +1,79 @@
-
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8" />
   <title>Live Fire Tracker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
   <style>
     body { margin: 0; padding: 0; }
     #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-    .mapboxgl-popup {
-      max-width: 300px;
-      font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
-    }
   </style>
 </head>
 <body>
-<div id="map"></div>
-<script>
+  <div id="map"></div>
+  <script>
     mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
 
-  const map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/satellite-streets-v12',
-    center: [-105.0, 55.0],
-    zoom: 4
-  });
-
-  map.on('load', () => {
-    map.addSource('fires', {
-      type: 'geojson',
-      data: 'https://raw.githubusercontent.com/RobertVLevesque/fire-tracker/main/data/fire_alerts.geojson'
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/satellite-streets-v12',
+      center: [-106.3, 56.1],
+      zoom: 4
     });
 
-    map.loadImage('https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Fire_icon.svg/1024px-Fire_icon.svg.png', (error, image) => {
-      if (error) throw error;
-      if (!map.hasImage('fire-icon')) map.addImage('fire-icon', image);
+    map.on('load', () => {
+      map.addSource('fires', {
+        type: 'geojson',
+        data: 'data/fire_alerts.geojson'
+      });
 
       map.addLayer({
-        id: 'fire-symbols',
-        type: 'symbol',
+        id: 'fire-locations',
+        type: 'circle',
         source: 'fires',
-        layout: {
-          'icon-image': 'fire-icon',
-          'icon-size': 0.05,
-          'icon-allow-overlap': true
+        paint: {
+          'circle-radius': 6,
+          'circle-color': [
+            'match',
+            ['get', 'status'],
+            '100% contained', '#00ff00',
+            'Prescribed', '#ffaa00',
+            'Out of Control', '#ff0000',
+            '#ff8800' // default
+          ],
+          'circle-stroke-width': 1,
+          'circle-stroke-color': '#000000'
         }
       });
 
-      // Popup on click
-      map.on('click', 'fire-symbols', (e) => {
+      // Optional: Popup on click
+      map.on('click', 'fire-locations', (e) => {
         const props = e.features[0].properties;
-        const popupHtml = `
-          <strong>${props.name || 'Unnamed Fire'}</strong><br>
-          Status: ${props.status || 'Unknown'}<br>
-          Size: ${props.size || '0'} ha<br>
-          Agency: ${props.agency || 'N/A'}<br>
-          Updated: ${props.updated || 'N/A'}
+        const coordinates = e.features[0].geometry.coordinates;
+        const description = `
+          <strong>${props.name || 'Unnamed Fire'}</strong><br/>
+          Status: ${props.status}<br/>
+          Size: ${props.size} ha<br/>
+          Agency: ${props.agency}<br/>
+          Updated: ${props.updated}
         `;
+
         new mapboxgl.Popup()
-          .setLngLat(e.lngLat)
-          .setHTML(popupHtml)
+          .setLngLat(coordinates)
+          .setHTML(description)
           .addTo(map);
       });
 
-      map.on('mouseenter', 'fire-symbols', () => {
+      map.on('mouseenter', 'fire-locations', () => {
         map.getCanvas().style.cursor = 'pointer';
       });
 
-      map.on('mouseleave', 'fire-symbols', () => {
+      map.on('mouseleave', 'fire-locations', () => {
         map.getCanvas().style.cursor = '';
       });
     });
-  });
-</script>
+  </script>
 </body>
 </html>
