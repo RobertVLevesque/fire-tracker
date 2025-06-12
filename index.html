@@ -1,146 +1,79 @@
-  <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8" />
   <title>Live Fire Tracker</title>
-  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
   <style>
     body { margin: 0; padding: 0; }
     #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-    .map-overlay {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(255,255,255,0.9);
-      padding: 10px;
-      font-family: sans-serif;
-      z-index: 1;
+    .mapboxgl-popup {
+      max-width: 300px;
+      font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
     }
   </style>
 </head>
 <body>
-  <div id="map"></div>
-  <div class="map-overlay">
-    <label for="style-selector">Map Style:</label>
-    <select id="style-selector">
-      <option value="mapbox://styles/mapbox/satellite-streets-v12" selected>Satellite + Streets</option>
-      <option value="mapbox://styles/mapbox/dark-v11">Dark</option>
-      <option value="mapbox://styles/mapbox/light-v11">Light</option>
-      <option value="mapbox://styles/mapbox/streets-v12">Streets</option>
-      <option value="mapbox://styles/mapbox/outdoors-v12">Outdoors</option>
-    </select>
-  </div>
+<div id="map"></div>
+<script>
+  mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN_HERE';
 
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-  <script>
-    mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/satellite-streets-v12',
+    center: [-105.0, 55.0],
+    zoom: 4
+  });
 
-    const geojsonURL = 'https://raw.githubusercontent.com/RobertVLevesque/fire-tracker/main/data/fire_alerts.geojson';
-const flameIconURL = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/FireIcon.svg/120px-FireIcon.svg.png';
-
-    let map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/satellite-streets-v12',
-      center: [-95, 56],
-      zoom: 4
+  map.on('load', () => {
+    map.addSource('fires', {
+      type: 'geojson',
+      data: 'https://raw.githubusercontent.com/RobertVLevesque/fire-tracker/main/data/fire_alerts.geojson'
     });
 
-    function addLayers() {
-      // Add CWFIS hotspots layer
-      map.addSource('cwfis-hotspots', {
-        type: 'raster',
-        tiles: [
-          'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/wms?' +
-          'service=WMS&version=1.1.0&request=GetMap&layers=public:hotspots_last24hrs' +
-          '&styles=&format=image/png&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}' +
-          '&width=256&height=256'
-        ],
-        tileSize: 256
-      });
+    map.loadImage('https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Fire_icon.svg/1024px-Fire_icon.svg.png', (error, image) => {
+      if (error) throw error;
+      if (!map.hasImage('fire-icon')) map.addImage('fire-icon', image);
 
       map.addLayer({
-        id: 'cwfis-hotspots-layer',
-        type: 'raster',
-        source: 'cwfis-hotspots',
-        paint: { 'raster-opacity': 1 }
-      });
-
-      // Add GeoJSON source for fires
-      map.addSource('fires', {
-        type: 'geojson',
-        data: geojsonURL
-      });
-
-      // Load fire icon and add flame symbol layer
-     map.loadImage(flameIconURL, (error, image) => {
-  if (error) throw error;
-  if (!map.hasImage('fire-icon')) map.addImage('fire-icon', image);
-
-  map.addLayer({
-    id: 'fire-symbols',
-    type: 'symbol',
-    source: 'fires',
-    layout: {
-      'icon-image': 'fire-icon',
-      'icon-size': 0.75,
-      'icon-allow-overlap': true
-    }
-  });
-
-  // Add popup on click
-  map.on('click', 'fire-symbols', (e) => {
-    const props = e.features[0].properties;
-    const name = props.name || 'Unnamed Fire';
-    const status = props.status || 'Unknown';
-    const agency = props.agency || 'N/A';
-    const size = props.size || '0';
-    const updated = props.updated || 'N/A';
-
-    new mapboxgl.Popup()
-      .setLngLat(e.lngLat)
-      .setHTML(
-        `<strong>${name}</strong><br>` +
-        `Status: ${status}<br>` +
-        `Agency: ${agency}<br>` +
-        `Size: ${size} ha<br>` +
-        `Updated: ${updated}`
-      )
-      .addTo(map);
-  });
-
-  // Change cursor on hover
-  map.on('mouseenter', 'fire-symbols', () => {
-    map.getCanvas().style.cursor = 'pointer';
-  });
-
-  map.on('mouseleave', 'fire-symbols', () => {
-    map.getCanvas().style.cursor = '';
-  });
-});
-
-
-      // Auto-refresh GeoJSON every 5 min
-      setInterval(() => {
-        if (map.getSource('fires')) {
-          map.getSource('fires').setData(geojsonURL);
+        id: 'fire-symbols',
+        type: 'symbol',
+        source: 'fires',
+        layout: {
+          'icon-image': 'fire-icon',
+          'icon-size': 0.05,
+          'icon-allow-overlap': true
         }
-      }, 300000);
-    }
+      });
 
-    map.on('load', () => {
-      addLayers();
-    });
+      // Popup on click
+      map.on('click', 'fire-symbols', (e) => {
+        const props = e.features[0].properties;
+        const popupHtml = `
+          <strong>${props.name || 'Unnamed Fire'}</strong><br>
+          Status: ${props.status || 'Unknown'}<br>
+          Size: ${props.size || '0'} ha<br>
+          Agency: ${props.agency || 'N/A'}<br>
+          Updated: ${props.updated || 'N/A'}
+        `;
+        new mapboxgl.Popup()
+          .setLngLat(e.lngLat)
+          .setHTML(popupHtml)
+          .addTo(map);
+      });
 
-    // Handle map style change with re-adding sources/layers
-    document.getElementById('style-selector').addEventListener('change', (e) => {
-      const newStyle = e.target.value;
-      map.setStyle(newStyle);
+      map.on('mouseenter', 'fire-symbols', () => {
+        map.getCanvas().style.cursor = 'pointer';
+      });
 
-      map.once('style.load', () => {
-        addLayers();
+      map.on('mouseleave', 'fire-symbols', () => {
+        map.getCanvas().style.cursor = '';
       });
     });
-  </script>
+  });
+</script>
 </body>
 </html>
