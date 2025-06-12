@@ -9,114 +9,141 @@
   <style>
     body { margin: 0; padding: 0; }
     #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-    .menu {
+    #filter-menu {
       position: absolute;
       background: white;
       padding: 10px;
       font-family: sans-serif;
-      z-index: 1;
-      border-radius: 4px;
       top: 10px;
       left: 10px;
+      border-radius: 5px;
+      z-index: 1;
     }
   </style>
 </head>
 <body>
-<div id="map"></div>
-<div class="menu">
-  <strong>Show:</strong><br>
-  <input type="checkbox" id="all" checked> All<br>
-  <input type="checkbox" id="OUT" checked> Out of Control<br>
-  <input type="checkbox" id="HOLD" checked> Being Held<br>
-  <input type="checkbox" id="UC" checked> Under Control
-</div>
+  <div id="map"></div>
+  <div id="filter-menu">
+    <strong>Show:</strong><br/>
+    <label><input type="checkbox" name="status" value="All" checked> All</label><br/>
+    <label><input type="checkbox" name="status" value="Out of Control"> Out of Control</label><br/>
+    <label><input type="checkbox" name="status" value="Being Held"> Being Held</label><br/>
+    <label><input type="checkbox" name="status" value="Under Control"> Under Control</label><br/>
+  </div>
 
-<script>
+  <script>
     mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/satellite-streets-v12',
+      center: [-106, 55],
+      zoom: 4
+    });
 
-const map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/mapbox/satellite-v9',
-  center: [-98.5, 60],
-  zoom: 3
-});
+    let fireData;
 
-function getCircleColor(status) {
-  switch (status) {
-    case 'OUT': return '#e63946'; // Red
-    case 'HOLD': return '#f1c40f'; // Yellow
-    case 'UC': return '#2ecc71'; // Green
-    default: return '#ffffff'; // White
-  }
-}
+    // Load fire alert points
+    async function loadFireAlerts() {
+      const response = await fetch('./data/fire_alerts.geojson');
+      const geojson = await response.json();
+      fireData = geojson;
 
-map.on('load', async () => {
-  try {
-    // 🔥 Load fire point data (GeoJSON)
-    const fireRes = await fetch('https://raw.githubusercontent.com/RobertVLevesque/fire-tracker/main/data/fire_alerts.geojson');
-    const fireData = await fireRes.json();
-    map.addSource('fires', { type: 'geojson', data: fireData });
+      map.addSource('fires', {
+        type: 'geojson',
+        data: geojson
+      });
 
-    map.addLayer({
-      id: 'fires-layer',
-      type: 'circle',
-      source: 'fires',
-      paint: {
-        'circle-radius': 6,
-        'circle-color': [
-          'match',
-          ['get', 'status'],
-          'OUT', '#e63946',
-          'HOLD', '#f1c40f',
-          'UC', '#2ecc71',
-          '#ffffff'
-        ],
-        'circle-opacity': 0.85
+      map.addLayer({
+        id: 'fire-points',
+        type: 'circle',
+        source: 'fires',
+        paint: {
+          'circle-radius': 6,
+          'circle-color': '#fff',
+          'circle-stroke-width': 1,
+          'circle-stroke-color': '#000'
+        }
+      });
+
+      map.on('click', 'fire-points', (e) => {
+        const props = e.features[0].properties;
+        new mapboxgl.Popup()
+          .setLngLat(e.lngLat)
+          .setHTML(`<strong>${props.name}</strong><br/>Status: ${props.status}<br/>Size: ${props.size} ha`)
+          .addTo(map);
+      });
+    }
+
+    // Load CWFIS fire perimeter polygons
+    async function loadPerimeters() {
+      const url = 'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/ows?' +
+        'service=WFS&version=1.0.0&request=GetFeature' +
+        '&typeName=public:m3_polygons_current' +
+        '&bbox=-141,41,-52,84' +
+        '&outputFormat=application/json';
+
+      const response = await fetch(url);
+      const geojson = await response.json();
+
+      map.addSource('perims', {
+        type: 'geojson',
+        data: geojson
+      });
+
+      map.addLayer({
+        id: 'fire-polygons',
+        type: 'fill',
+        source: 'perims',
+        paint: {
+          'fill-color': '#f03b20',
+          'fill-opacity': 0.25
+        }
+      });
+    }
+
+    // Filter fires by status
+    function applyFilters() {
+      const checkboxes = document.querySelectorAll('input[name="status"]');
+      const checked = Array.from(checkboxes).filter(c => c.checked).map(c => c.value);
+
+      if (checked.includes('All')) {
+        map.getSource('fires').setData(fireData);
+        return;
+      }
+
+      const filtered = {
+        ...fireData,
+        features: fireData.features.filter(f => checked.includes(f.properties.status))
+      };
+
+      map.getSource('fires').setData(filtered);
+    }
+
+    map.on('load', async () => {
+      try {
+        await loadFireAlerts();
+        await loadPerimeters();
+        applyFilters();
+      } catch (err) {
+        console.error('Error loading layers:', err);
+        alert("Something went wrong loading map layers. See console for details.");
       }
     });
 
-    // 🧯 Load perimeter polygons
-    const perimeterURL =
-      'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/ows?' +
-      'service=WFS&version=1.0.0&request=GetFeature&' +
-      'typeName=public:m3_polygons_current&' +
-      'outputFormat=application/json';
-
-    const perimRes = await fetch(perimeterURL);
-    const perimData = await perimRes.json();
-
-    map.addSource('perims', { type: 'geojson', data: perimData });
-    map.addLayer({
-      id: 'fire-polygons',
-      type: 'fill',
-      source: 'perims',
-      paint: {
-        'fill-color': '#f03b20',
-        'fill-opacity': 0.2
-      }
-    });
-
-    // 🧠 Filter checkbox logic
-    const filters = ['OUT', 'HOLD', 'UC'];
-
-    document.querySelectorAll('.menu input[type=checkbox]').forEach(checkbox => {
-      checkbox.addEventListener('change', () => {
-        const activeFilters = filters.filter(f => document.getElementById(f).checked);
-        const showAll = document.getElementById('all').checked;
-
-        map.setFilter('fires-layer',
-          showAll || activeFilters.length === 0
-            ? null
-            : ['in', ['get', 'status'], ['literal', activeFilters]]
-        );
+    // Filter UI interaction
+    document.querySelectorAll('input[name="status"]').forEach(input => {
+      input.addEventListener('change', () => {
+        const allBox = document.querySelector('input[value="All"]');
+        if (input.value === 'All' && input.checked) {
+          document.querySelectorAll('input[name="status"]').forEach(c => {
+            c.checked = (c.value === 'All');
+          });
+        } else {
+          allBox.checked = false;
+        }
+        applyFilters();
       });
     });
-
-  } catch (err) {
-    console.error('🔥 Error loading data:', err);
-    alert('Something went wrong. Check console.');
-  }
-});
-</script>
+  </script>
 </body>
 </html>
