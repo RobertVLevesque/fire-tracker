@@ -4,144 +4,76 @@
   <meta charset="utf-8" />
   <title>Live Fire Tracker</title>
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
   <style>
     body { margin: 0; padding: 0; }
     #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-    #menu {
-      background: white;
-      position: absolute;
-      z-index: 1;
-      top: 10px;
-      left: 10px;
-      border-radius: 3px;
-      font-family: 'Arial', sans-serif;
-      font-size: 14px;
-      padding: 10px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-    }
   </style>
 </head>
 <body>
-<div id="menu">
-  <strong>Show:</strong><br>
-  <label><input type="checkbox" value="All" checked> All</label><br>
-  <label><input type="checkbox" value="Out of Control"> Out of Control</label><br>
-  <label><input type="checkbox" value="Being Held"> Being Held</label><br>
-  <label><input type="checkbox" value="Under Control"> Under Control</label>
-</div>
-<div id="map"></div>
-
-<script>
+  <div id="map"></div>
+  <script>
     mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
 
-const map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/mapbox/satellite-streets-v12',
-  center: [-100, 55],
-  zoom: 4
-});
-
-const statusMap = {
-  'OC': 'Out of Control',
-  'BH': 'Being Held',
-  'UC': 'Under Control'
-};
-
-const pointURL = 'https://raw.githubusercontent.com/RobertVLevesque/fire-tracker/main/data/fire_alerts.geojson';
-const perimeterURL =
-  'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/ows?' +
-  'service=WFS&version=1.0.0&request=GetFeature&' +
-  'typeName=public:m3_polygons_current&' +
-  'bbox=-141,41,-52,84&' + // Western Canada bounds
-  'outputFormat=application/json';
-
-map.on('load', async () => {
-  try {
-    const [pointRes, polyRes] = await Promise.all([
-      fetch(pointURL).then(r => r.json()),
-      fetch(perimeterURL).then(r => r.json())
-    ]);
-
-    // Remap polygon status to match point labels
-    polyRes.features.forEach(f => {
-      if (f.properties && f.properties.status && statusMap[f.properties.status]) {
-        f.properties.statusFull = statusMap[f.properties.status];
-      } else {
-        f.properties.statusFull = 'Unknown';
-      }
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/satellite-streets-v12',
+      center: [-106.3, 56.1],
+      zoom: 4
     });
 
-    map.addSource('fires', { type: 'geojson', data: pointRes });
-    map.addSource('perimeters', { type: 'geojson', data: polyRes });
+    map.on('load', () => {
+      map.addSource('fires', {
+        type: 'geojson',
+        data: 'data/fire_alerts.geojson'
+      });
 
-    // Polygon layer
-    map.addLayer({
-      id: 'fire-polygons',
-      type: 'fill',
-      source: 'perimeters',
-      paint: {
-        'fill-color': '#f03b20',
-        'fill-opacity': 0.25
-      }
+      map.addLayer({
+        id: 'fire-locations',
+        type: 'circle',
+        source: 'fires',
+        paint: {
+          'circle-radius': 6,
+          'circle-color': [
+            'match',
+            ['get', 'status'],
+            '100% contained', '#00ff00',
+            'Prescribed', '#ffaa00',
+            'Out of Control', '#ff0000',
+            '#ff8800' // default
+          ],
+          'circle-stroke-width': 1,
+          'circle-stroke-color': '#000000'
+        }
+      });
+
+      // Optional: Popup on click
+      map.on('click', 'fire-locations', (e) => {
+        const props = e.features[0].properties;
+        const coordinates = e.features[0].geometry.coordinates;
+        const description = `
+          <strong>${props.name || 'Unnamed Fire'}</strong><br/>
+          Status: ${props.status}<br/>
+          Size: ${props.size} ha<br/>
+          Agency: ${props.agency}<br/>
+          Updated: ${props.updated}
+        `;
+
+        new mapboxgl.Popup()
+          .setLngLat(coordinates)
+          .setHTML(description)
+          .addTo(map);
+      });
+
+      map.on('mouseenter', 'fire-locations', () => {
+        map.getCanvas().style.cursor = 'pointer';
+      });
+
+      map.on('mouseleave', 'fire-locations', () => {
+        map.getCanvas().style.cursor = '';
+      });
     });
-
-    // Fire point layer
-    map.addLayer({
-      id: 'fire-points',
-      type: 'circle',
-      source: 'fires',
-      paint: {
-        'circle-radius': 5,
-        'circle-color': '#ffffff',
-        'circle-stroke-width': 1,
-        'circle-stroke-color': '#000000'
-      }
-    });
-
-    applyFilters();
-  } catch (err) {
-    console.error('🔥 Error loading map layers:', err);
-    alert('Something went wrong loading map layers.');
-  }
-});
-
-// 🔄 Filter logic
-function applyFilters() {
-  const checked = Array.from(document.querySelectorAll('#menu input[type="checkbox"]:checked'))
-    .map(cb => cb.value);
-
-  const allChecked = checked.includes('All');
-  const statusList = allChecked
-    ? ['Out of Control', 'Being Held', 'Under Control']
-    : checked;
-
-  // Filter for fire points
-  map.setFilter('fire-points', [
-    'in', ['get', 'status'],
-    ['literal', statusList]
-  ]);
-
-  // Filter for polygons
-  map.setFilter('fire-polygons', [
-    'in', ['get', 'statusFull'],
-    ['literal', statusList]
-  ]);
-}
-
-// 🔁 Listen to checkbox changes
-document.querySelectorAll('#menu input').forEach(input => {
-  input.addEventListener('change', () => {
-    if (input.value === 'All') {
-      const all = input.checked;
-      document.querySelectorAll('#menu input[type="checkbox"]').forEach(cb => cb.checked = all);
-    } else {
-      document.querySelector('#menu input[value="All"]').checked = false;
-    }
-    applyFilters();
-  });
-});
-</script>
+  </script>
 </body>
 </html>
