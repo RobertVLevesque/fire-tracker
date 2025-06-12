@@ -1,105 +1,114 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <title>Live Fire Tracker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet" />
+  <meta charset="utf-8">
+  <title>Live Fire Tracker w/ CWFIS Perimeters</title>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css" rel="stylesheet" />
   <style>
-    body { margin: 0; padding: 0; }
-    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-    #filters {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: white;
-      padding: 10px;
-      z-index: 1;
-      font-family: sans-serif;
-    }
-    #filters label {
-      display: block;
-      margin-bottom: 5px;
-    }
+    body, html { margin:0; padding:0; height:100%; }
+    #map { position:absolute; top:0; right:0; bottom:0; left:0; }
+    #menu { position:absolute; top:10px; left:10px; padding:10px; background:white; z-index:1; }
   </style>
 </head>
 <body>
-
-<div id="filters">
-  <label><input type="radio" name="status" value="all" checked /> Show All</label>
-  <label><input type="radio" name="status" value="Out of Control" /> Out of Control</label>
-  <label><input type="radio" name="status" value="Being Held" /> Being Held</label>
-  <label><input type="radio" name="status" value="Under Control" /> Under Control</label>
+<div id="menu">
+  <strong>Show:</strong><br>
+  <label><input type="checkbox" value="all" checked onclick="setFilter('all')"> All</label><br>
+  <label><input type="checkbox" value="Out of Control" onclick="toggle('Out of Control')"> Out of Control</label><br>
+  <label><input type="checkbox" value="Being Held" onclick="toggle('Being Held')"> Being Held</label><br>
+  <label><input type="checkbox" value="Under Control" onclick="toggle('Under Control')"> Under Control</label>
 </div>
-
 <div id="map"></div>
 
 <script>
-    mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
+mapboxgl.accessToken = '<YOUR_MAPBOX_TOKEN>';
+const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/satellite-streets-v11',
+  center: [-100,55], zoom: 3.5
+});
 
-  const map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/satellite-streets-v12',
-    center: [-105, 55],
-    zoom: 4,
-    projection: 'globe'
+map.on('load', async () => {
+  // 1. Load your fire alerts
+  const fires = await fetch('data/fire_alerts.geojson').then(r => r.json());
+  map.addSource('fires', { type:'geojson', data:fires});
+  map.addLayer({
+    id: 'fire-points',
+    type: 'circle',
+    source: 'fires',
+    paint: {
+      'circle-radius': 6,
+      'circle-color': [
+        'match', ['get','status'],
+        'Out of Control', '#b10026',
+        'Being Held',     '#ff7f00',
+        'Under Control',  '#7fcdbb',
+        '#aaaaaa'
+      ],
+      'circle-stroke-width': 1,
+      'circle-stroke-color': '#000'
+    }
   });
 
-  map.on('load', () => {
-    // Add perimeter source
-    map.addSource('perimeters', {
-      type: 'geojson',
-      data: 'https://cwfis.cfs.nrcan.gc.ca/data/geojson/perimeter_active.json'
-    });
-
-    // Add filled layer
-    map.addLayer({
-      id: 'perimeter-fill',
-      type: 'fill',
-      source: 'perimeters',
-      paint: {
-        'fill-color': [
-          'match',
-          ['get', 'status'],
-          'Out of Control', '#e60000',
-          'Being Held', '#ff9900',
-          'Under Control', '#33cc33',
-          '#999999'
-        ],
-        'fill-opacity': 0.3
-      }
-    });
-
-    // Add outline layer
-    map.addLayer({
-      id: 'perimeter-outline',
-      type: 'line',
-      source: 'perimeters',
-      paint: {
-        'line-color': '#000000',
-        'line-width': 1
-      }
-    });
-
-    // Filter control
-    document.querySelectorAll('input[name="status"]').forEach((el) => {
-      el.addEventListener('change', (e) => {
-        const val = e.target.value;
-        if (val === 'all') {
-          map.setFilter('perimeter-fill', null);
-          map.setFilter('perimeter-outline', null);
-        } else {
-          map.setFilter('perimeter-fill', ['==', ['get', 'status'], val]);
-          map.setFilter('perimeter-outline', ['==', ['get', 'status'], val]);
-        }
-      });
-    });
+  // 2. Load CWFIS perimeter polygons via WFS
+  const wfsUrl = "https://cwfis.cfs.nrcan.gc.ca/geoserver/public/ows?" +
+    "service=WFS&version=1.0.0&request=GetFeature&" +
+    "typeName=public:m3_polygons_current&" +
+    "outputFormat=application/json";
+  const perims = await fetch(wfsUrl).then(r => r.json());
+  map.addSource('perims', { type:'geojson', data:perims });
+  map.addLayer({
+    id: 'fire-polygons',
+    type: 'fill',
+    source: 'perims',
+    paint: {
+      'fill-color': '#f03b20',
+      'fill-opacity': 0.3
+    }
   });
+
+  window.statusFilters = {
+    'Out of Control': true,
+    'Being Held': true,
+    'Under Control': true,
+    'all': true
+  };
+
+  window.toggle = function(status) {
+    statusFilters[status] = !statusFilters[status];
+    statusFilters['all'] = false;
+    applyFilters();
+  };
+
+  window.setFilter = function(val) {
+    if(val === 'all') {
+      Object.keys(statusFilters).forEach(k => statusFilters[k] = (k==='all'));
+    }
+    applyFilters();
+  };
+
+  function applyFilters() {
+    const active = Object.keys(statusFilters).filter(k => statusFilters[k] && k !== 'all');
+    let filterExp = ["in", ["get", "status"], ["literal", active]];
+    if(statusFilters['all']) filterExp = null;
+    map.setFilter('fire-points', filterExp);
+    // no perim status filter since CWFIS polygons have built-in control status
+  }
+
+  applyFilters();
+  map.on('click', 'fire-points', e => {
+    const p = e.features[0].properties;
+    new mapboxgl.Popup()
+      .setLngLat(e.features[0].geometry.coordinates)
+      .setHTML(`<strong>${p.name}</strong><br>Status: ${p.status}<br>Size: ${p.size} ha`)
+      .addTo(map);
+  });
+});
 </script>
-
 </body>
 </html>
+
 
     });
   </script>
