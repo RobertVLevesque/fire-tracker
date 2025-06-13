@@ -87,7 +87,7 @@
 
         new mapboxgl.Marker({
           color: colors[status] || '#ccc',
-          scale: radius / 4
+          scale: Math.min(1.5, Math.max(0.3, Math.sqrt(size) * 0.02))
         })
         .setLngLat(coordinates)
         .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(popupHtml))
