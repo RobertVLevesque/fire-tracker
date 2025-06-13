@@ -1,43 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8">
   <title>Live Fire Tracker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet" />
   <style>
-    body, html { margin: 0; padding: 0; height: 100%; }
-    #map { height: 100%; width: 100%; }
-    #filters {
+    body, html { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+
+    .filters {
       position: absolute;
-      background: white;
-      padding: 10px;
-      z-index: 1;
-      font-family: sans-serif;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
-    #filters input, #filters select {
-      margin: 2px;
-      padding: 2px;
+
+    .badge {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-weight: bold;
+      border: 2px solid transparent;
+      transition: all 0.2s;
     }
+
+    .badge.active {
+      border-color: #000;
+    }
+
+    .badge.oc { color: red; }
+    .badge.bh { color: orange; }
+    .badge.uc { color: green; }
   </style>
 </head>
 <body>
-  <div id="filters">
-    <label>Status:
-      <select id="statusFilter">
-        <option value="">All</option>
-        <option value="OC">Out of Control</option>
-        <option value="BH">Being Held</option>
-        <option value="UC">Under Control</option>
-      </select>
-    </label>
-    <label>Agency: <input type="text" id="agencyFilter" placeholder="e.g. AB, BC" /></label>
-    <label>Name: <input type="text" id="nameFilter" placeholder="search..." /></label>
-    <label>Min Size (ha): <input type="number" id="minSize" value="0" /></label>
-    <label>Max Size (ha): <input type="number" id="maxSize" value="999999" /></label>
-  </div>
-  <div id="map"></div>
+<div id="map"></div>
+<div class="filters">
+  <div class="badge oc active" data-status="OC">Out of Control</div>
+  <div class="badge bh active" data-status="BH">Being Held</div>
+  <div class="badge uc active" data-status="UC">Under Control</div>
+</div>
 
   <script>
     mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
