@@ -1,141 +1,126 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <title>Live Fire Tracker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
   <style>
-    body { margin: 0; padding: 0; font-family: sans-serif; }
-    #map { position: absolute; top: 50px; bottom: 0; width: 100%; }
-
+    body, html { margin: 0; padding: 0; font-family: sans-serif; }
+    #map { position: absolute; top: 60px; bottom: 0; width: 100%; }
     .filters {
       position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 1;
+      top: 10px; left: 10px;
+      z-index: 10;
+      display: flex;
+      gap: 10px;
     }
-
     .filters button {
-      padding: 8px 14px;
-      margin-right: 5px;
+      padding: 6px 14px;
       border: none;
       border-radius: 20px;
+      color: white;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-      transition: transform 0.2s;
+      opacity: 0.7;
     }
+    .filters button.active { opacity: 1; outline: 2px solid white; }
 
-    .filters button.active {
-      transform: scale(1.1);
-    }
+    .filters .oc   { background: #d73027; }
+    .filters .bh   { background: #fdae61; color: black; }
+    .filters .uc   { background: #1a9850; }
 
-    .red { background-color: #f44336; color: white; }
-    .yellow { background-color: #ffc107; color: black; }
-    .green { background-color: #4caf50; color: white; }
-
-    .popup {
-      background-color: #0b3a6a;
-      color: #fff;
-      padding: 12px;
-      border-radius: 8px;
-      max-width: 240px;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
-    .popup h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
+    .mapboxgl-popup-content {
+      font-family: sans-serif;
+      background: #003a63;
       color: white;
+      border-radius: 6px;
+      padding: 12px;
     }
-
-    .popup p {
-      margin: 2px 0;
-      font-size: 14px;
-    }
-
-    .popup p span {
-      color: #4dd0e1;
-      font-weight: 500;
+    .mapboxgl-popup-content strong { font-size: 1.2em; display: block; margin-bottom: 6px; }
+    .mapboxgl-popup-content span {
+      display: block;
+      color: #70cfff;
+      margin-bottom: 4px;
     }
   </style>
 </head>
 <body>
   <div class="filters">
-<button class=data-status="OC">Out of Control</button>
-<button class=data-status="BH">Being Held</button>
-<button class=data-status="UC">Under Control</button>
+    <button class="oc active" data-status="OC">Out of Control</button>
+    <button class="bh active" data-status="BH">Being Held</button>
+    <button class="uc active" data-status="UC">Under Control</button>
   </div>
   <div id="map"></div>
 
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <script>
     mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
-
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/satellite-streets-v12',
+      style: 'mapbox://styles/mapbox/satellite-v9',
       center: [-100, 55],
       zoom: 4
     });
 
     let allFires = [];
 
-    async function loadData() {
-      const res = await fetch('./data/fire_alerts.geojson');
-      const geojson = await res.json();
-      allFires = geojson.features;
-      drawFires(allFires);
-    }
+    const colors = {
+      'OC': '#d73027',
+      'BH': '#fdae61',
+      'UC': '#1a9850'
+    };
 
-    function drawFires(features) {
-      const colors = { OC: '#f44336', BH: '#ffc107', UC: '#4caf50' };
+    function drawFires(data) {
+      data.forEach((f, i) => {
+        const { coordinates } = f.geometry;
+        const { name, size, status, agency, updated } = f.properties;
 
-      map.on('load', () => {
-        features.forEach((feature, i) => {
-          const { name, size = 0, status, agency, updated } = feature.properties;
-          const [lon, lat] = feature.geometry.coordinates;
+        const radius = Math.sqrt(size) * 0.3;
+        const popupHtml = `
+          <strong>${name}</strong>
+          <span>Size: ${size.toLocaleString()} ha</span>
+          <span>Status: ${status}</span>
+          <span>Agency: ${agency}</span>
+          <span>Updated: ${updated}</span>
+        `;
 
-const popupHtml = `
-  <div style="padding:10px; background:#003f63; color:white; font-family:sans-serif; border-radius:8px;">
-    <h3 style="margin:0 0 5px; font-size:1.2em;">${fireName}</h3>
-    <div style="color:#00bfff;">Size: ${size} ha</div>
-    <div style="color:#00bfff;">Start Date: ${updated}</div>
-    <div style="color:#00bfff;">Agency: ${agency}</div>
-  </div>`;
-
-
-          new mapboxgl.CircleMarker({
-            center: [lon, lat],
-            color: colors[status] || '#ccc',
-            radius: Math.max(Math.sqrt(size) * 0.3, 4),
-            popup: new mapboxgl.Popup({ offset: 25 }).setHTML(popupHtml)
-          }).addTo(map);
-        });
+        new mapboxgl.Marker({
+          color: colors[status] || '#ccc',
+          scale: radius / 4
+        })
+        .setLngLat(coordinates)
+        .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(popupHtml))
+        .addTo(map)
+        .getElement().classList.add(`circle-${status}`);
       });
     }
 
-   function filterFires(statusCode) {
-  document.querySelectorAll('.filters button').forEach(btn => {
-    btn.classList.remove('active');
-    if (btn.dataset.status === statusCode) {
-      btn.classList.add('active');
+    function clearFires() {
+      document.querySelectorAll('[class^="circle-"]').forEach(el => el.remove());
     }
-  });
 
-  map.eachLayer(layer => {
-    if (layer.id.startsWith('circle-')) {
-      map.removeLayer(layer.id);
+    function applyFilters() {
+      const active = Array.from(document.querySelectorAll('.filters button.active'))
+        .map(btn => btn.dataset.status);
+      const filtered = allFires.filter(f => active.includes(f.properties.status));
+      clearFires();
+      drawFires(filtered);
     }
-  });
 
-  const filtered = allFires.filter(f => f.properties.status === statusCode);
-  drawFires(filtered);
-}
+    document.querySelectorAll('.filters button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('active');
+        applyFilters();
+      });
+    });
 
-
-    loadData();
+    fetch('data/fire_alerts.geojson')
+      .then(res => res.json())
+      .then(data => {
+        allFires = data.features;
+        applyFilters();
+      });
   </script>
 </body>
 </html>
