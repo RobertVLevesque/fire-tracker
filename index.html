@@ -47,105 +47,74 @@
   <div class="badge uc active" data-status="UC">Under Control</div>
 </div>
 
-  <script>
-    mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iZXJ0dmxldmVzcXVlIiwiYSI6ImNtYmYwMjg4ZjIyd3UyaXBvand4c21mYXcifQ.XiHliWAicUYAIZ17JQdRng';
-    const map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/satellite-streets-v12',
-  
-      center: [-100, 55],
-      zoom: 4
-    });
+<script>
+  mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/satellite-streets-v12',
+    center: [-106, 56],
+    zoom: 4
+  });
 
-    let geojsonData = null;
+  async function loadFires() {
+    const res = await fetch('./data/fire_alerts.geojson');
+    const data = await res.json();
+    return data.features;
+  }
 
-    const getSizeScaled = (size) => {
-      if (!size || isNaN(size)) return 4;
-      return Math.min(30, Math.max(4, Math.sqrt(size) * 0.75));
+  function updateMap(features, activeStatuses) {
+    const filtered = features.filter(f => activeStatuses.includes(f.properties.status));
+    const geojson = {
+      type: "FeatureCollection",
+      features: filtered
     };
 
-    const loadAndRenderFires = () => {
-      fetch('data/fire_alerts.geojson')
-        .then(res => res.json())
-        .then(data => {
-          geojsonData = data;
-          applyFilters();
-        })
-        .catch(err => {
-          alert("Error loading fire data.");
-          console.error(err);
-        });
-    };
-
-    const applyFilters = () => {
-      const status = document.getElementById('statusFilter').value.toLowerCase();
-      const agency = document.getElementById('agencyFilter').value.toLowerCase();
-      const name = document.getElementById('nameFilter').value.toLowerCase();
-      const minSize = parseFloat(document.getElementById('minSize').value);
-      const maxSize = parseFloat(document.getElementById('maxSize').value);
-
-      const filteredFeatures = geojsonData.features.filter(f => {
-        const props = f.properties;
-        const s = props.status?.toLowerCase() || '';
-        const a = props.agency?.toLowerCase() || '';
-        const n = props.name?.toLowerCase() || '';
-        const size = parseFloat(props.size || 0);
-        return (!status || s.includes(status)) &&
-               (!agency || a.includes(agency)) &&
-               (!name || n.includes(name)) &&
-               (size >= minSize && size <= maxSize);
+    if (map.getSource('fires')) {
+      map.getSource('fires').setData(geojson);
+    } else {
+      map.addSource('fires', { type: 'geojson', data: geojson });
+      map.addLayer({
+        id: 'fires-circle',
+        type: 'circle',
+        source: 'fires',
+        paint: {
+          'circle-color': '#ff4d4d',
+          'circle-opacity': 0.7,
+          'circle-radius': ['interpolate', ['linear'], ['get', 'size'], 0, 4, 10000, 40]
+        }
       });
 
-      const filteredGeo = {
-        type: "FeatureCollection",
-        features: filteredFeatures
-      };
+      map.on('click', 'fires-circle', (e) => {
+        const p = e.features[0].properties;
+        new mapboxgl.Popup()
+          .setLngLat(e.lngLat)
+          .setHTML(
+            `<strong>${p.name}</strong><br/>
+             Size: ${p.size} ha<br/>
+             Status: ${p.status}<br/>
+             Agency: ${p.agency}<br/>
+             Updated: ${p.updated}`
+          )
+          .addTo(map);
+      });
+    }
+  }
 
-      if (map.getSource('fires')) {
-        map.getSource('fires').setData(filteredGeo);
-      } else {
-        map.addSource('fires', { type: 'geojson', data: filteredGeo });
-        map.addLayer({
-          id: 'fires-circle',
-          type: 'circle',
-          source: 'fires',
-          paint: {
-            'circle-radius': ['interpolate', ['linear'], ['get', 'size'], 0, 4, 1000, 20],
-            'circle-color': '#f84b4b',
-            'circle-opacity': 0.8,
-            'circle-stroke-color': '#fff',
-            'circle-stroke-width': 1
-          }
-        });
+  (async () => {
+    const features = await loadFires();
+    let activeStatuses = ['OC', 'BH', 'UC'];
 
-        map.on('click', 'fires-circle', (e) => {
-          const props = e.features[0].properties;
-          const coords = e.features[0].geometry.coordinates.slice();
-          const content = `
-            <strong>${props.name || 'Unknown Fire'}</strong><br/>
-            Status: ${props.status || 'N/A'}<br/>
-            Size: ${props.size || 'N/A'} ha<br/>
-            Agency: ${props.agency || 'N/A'}<br/>
-            Source: ${props.source || 'N/A'}<br/>
-            Updated: ${props.updated || 'N/A'}
-          `;
-          new mapboxgl.Popup().setLngLat(coords).setHTML(content).addTo(map);
-        });
+    updateMap(features, activeStatuses);
 
-        map.on('mouseenter', 'fires-circle', () => {
-          map.getCanvas().style.cursor = 'pointer';
-        });
-        map.on('mouseleave', 'fires-circle', () => {
-          map.getCanvas().style.cursor = '';
-        });
-      }
-    };
-
-    ['statusFilter', 'agencyFilter', 'nameFilter', 'minSize', 'maxSize'].forEach(id =>
-      document.getElementById(id).addEventListener('input', applyFilters)
-    );
-
-    map.on('load', loadAndRenderFires);
-  </script>
+    document.querySelectorAll('.badge').forEach(badge => {
+      badge.addEventListener('click', () => {
+        badge.classList.toggle('active');
+        activeStatuses = Array.from(document.querySelectorAll('.badge.active'))
+                              .map(b => b.dataset.status);
+        updateMap(features, activeStatuses);
+      });
+    });
+  })();
+</script>
 </body>
 </html>
