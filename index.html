@@ -14,17 +14,23 @@
       font-family: sans-serif;
     }
 
+    #map {
+      width: 100vw;
+      height: 100vh;
+    }
+
     .filters {
       position: absolute;
       top: 10px;
-      left: 10px;
+      left: 70px;
       z-index: 10;
+      display: flex;
+      gap: 8px;
     }
 
     .filters button {
       border: none;
       padding: 8px 14px;
-      margin-right: 6px;
       border-radius: 20px;
       font-weight: bold;
       cursor: pointer;
@@ -35,13 +41,16 @@
       box-shadow: 0 0 5px black;
     }
 
-    .filters button.red { background: #e74c3c; }
-    .filters button.orange { background: #f39c12; }
-    .filters button.green { background: #27ae60; }
+    .filters .red { background: #e74c3c; }
+    .filters .orange { background: #f39c12; }
+    .filters .green { background: #27ae60; }
 
-    #map {
-      width: 100vw;
-      height: 100vh;
+    .logo {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      z-index: 10;
+      height: 50px;
     }
 
     .popup-box {
@@ -66,6 +75,7 @@
   </style>
 </head>
 <body>
+  <img class="logo" src="wow_icon-colour_white-background.png" alt="WoW Logo" />
   <div class="filters">
     <button class="red active" data-status="OC">Out of Control</button>
     <button class="orange active" data-status="BH">Being Held</button>
@@ -83,11 +93,11 @@
       zoom: 4
     });
 
-    let allMarkers = [];
-    const colors = {
-      'OC': '#e74c3c',
-      'BH': '#f39c12',
-      'UC': '#27ae60'
+    let allFires = [];
+    const statusColors = {
+      OC: '#e74c3c',
+      BH: '#f39c12',
+      UC: '#27ae60'
     };
 
     function createPopupHTML(props) {
@@ -102,42 +112,43 @@
       `;
     }
 
-    function drawFires(features) {
-      allMarkers.forEach(marker => marker.remove());
-      allMarkers = [];
+    function drawFires(fires) {
+      fires.forEach((feature, i) => {
+        const { geometry, properties } = feature;
+        const [lon, lat] = geometry.coordinates;
+        const size = Math.max(parseFloat(properties.size || 1), 1);
+        const color = statusColors[properties.status] || '#ccc';
 
-      features.forEach(f => {
-        const [lon, lat] = f.geometry.coordinates;
-        const props = f.properties;
-        const size = Math.max(parseFloat(props.size || 1), 1);
+        const circle = document.createElement('div');
+        circle.style.width = circle.style.height = `${Math.min(60, Math.sqrt(size) * 2)}px`;
+        circle.style.borderRadius = '50%';
+        circle.style.background = color;
+        circle.style.opacity = 0.75;
+        circle.style.border = '2px solid white';
 
-        const marker = new mapboxgl.Marker({
-          color: colors[props.status] || '#ccc',
-          scale: Math.min(1.0, Math.sqrt(size) / 50)
-        })
-        .setLngLat([lon, lat])
-        .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(createPopupHTML(props)))
-        .addTo(map);
+        const marker = new mapboxgl.Marker({ element: circle })
+          .setLngLat([lon, lat])
+          .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(createPopupHTML(properties)))
+          .addTo(map);
 
-        marker.status = props.status;
-        allMarkers.push(marker);
+        marker.status = properties.status;
+        allFires.push(marker);
       });
     }
 
-    function updateFilter() {
-      const activeStatuses = Array.from(document.querySelectorAll('.filters button.active'))
+    function updateVisibility() {
+      const active = Array.from(document.querySelectorAll('.filters button.active'))
         .map(btn => btn.getAttribute('data-status'));
 
-      allMarkers.forEach(marker => {
-        const shouldShow = activeStatuses.includes(marker.status);
-        marker.getElement().style.display = shouldShow ? 'block' : 'none';
+      allFires.forEach(marker => {
+        marker.getElement().style.display = active.includes(marker.status) ? 'block' : 'none';
       });
     }
 
     document.querySelectorAll('.filters button').forEach(btn => {
       btn.addEventListener('click', () => {
         btn.classList.toggle('active');
-        updateFilter();
+        updateVisibility();
       });
     });
 
