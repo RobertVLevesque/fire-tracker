@@ -28,7 +28,7 @@
       <select id="statusFilter">
         <option value="">All</option>
         <option value="OC">Out of Control</option>
-        <option value=BH">Being Held</option>
+        <option value="BH">Being Held</option>
         <option value="UC">Under Control</option>
       </select>
     </label>
@@ -110,7 +110,7 @@
           }
         });
 
-        map.on('click', 'fires-circle', (e) => {
+        map.on('hover', 'fires-circle', (e) => {
           const props = e.features[0].properties;
           const coords = e.features[0].geometry.coordinates.slice();
           const content = `
