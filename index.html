@@ -110,7 +110,7 @@
           }
         });
 
-        map.on('hover', 'fires-circle', (e) => {
+        map.on('click', 'fires-circle', (e) => {
           const props = e.features[0].properties;
           const coords = e.features[0].geometry.coordinates.slice();
           const content = `
