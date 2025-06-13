@@ -64,9 +64,9 @@
 </head>
 <body>
   <div class="filters">
-    <button class="red" onclick="filterFires('OC')">Out of Control</button>
-    <button class="yellow" onclick="filterFires('BH')">Being Held</button>
-    <button class="green" onclick="filterFires('UC')">Under Control</button>
+<button data-status="OC">Out of Control</button>
+<button data-status="BH">Being Held</button>
+<button data-status="UC">Under Control</button>
   </div>
   <div id="map"></div>
 
@@ -97,15 +97,14 @@
           const { name, size = 0, status, agency, updated } = feature.properties;
           const [lon, lat] = feature.geometry.coordinates;
 
-          const popupHtml = `
-            <div class="popup">
-              <h3>${name}</h3>
-              <p><span>Size:</span> ${size} ha</p>
-              <p><span>Status:</span> ${status}</p>
-              <p><span>Agency:</span> ${agency}</p>
-              <p><span>Updated:</span> ${updated}</p>
-            </div>
-          `;
+const popupHtml = `
+  <div style="padding:10px; background:#003f63; color:white; font-family:sans-serif; border-radius:8px;">
+    <h3 style="margin:0 0 5px; font-size:1.2em;">${fireName}</h3>
+    <div style="color:#00bfff;">Size: ${size} ha</div>
+    <div style="color:#00bfff;">Start Date: ${updated}</div>
+    <div style="color:#00bfff;">Agency: ${agency}</div>
+  </div>`;
+
 
           new mapboxgl.CircleMarker({
             center: [lon, lat],
@@ -117,21 +116,24 @@
       });
     }
 
-    function filterFires(statusCode) {
-      document.querySelectorAll('.filters button').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.textContent.includes(statusCode)) btn.classList.add('active');
-      });
-
-      map.eachLayer(layer => {
-        if (layer.id.startsWith('circle-')) {
-          map.removeLayer(layer.id);
-        }
-      });
-
-      const filtered = allFires.filter(f => f.properties.status === statusCode);
-      drawFires(filtered);
+   function filterFires(statusCode) {
+  document.querySelectorAll('.filters button').forEach(btn => {
+    btn.classList.remove('active');
+    if (btn.dataset.status === statusCode) {
+      btn.classList.add('active');
     }
+  });
+
+  map.eachLayer(layer => {
+    if (layer.id.startsWith('circle-')) {
+      map.removeLayer(layer.id);
+    }
+  });
+
+  const filtered = allFires.filter(f => f.properties.status === statusCode);
+  drawFires(filtered);
+}
+
 
     loadData();
   </script>
