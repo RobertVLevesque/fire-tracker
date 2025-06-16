@@ -16,7 +16,7 @@
         "status": "100% contained",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.825Z"
       }
     },
     {
@@ -34,25 +34,7 @@
         "status": "100% contained",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -118.158,
-          44.7335
-        ]
-      },
-      "properties": {
-        "name": "Deer Prescribed - ORWWF",
-        "size": 65.205,
-        "status": "Prescribed",
-        "agency": "conus",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -70,7 +52,25 @@
         "status": "Prescribed",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.158,
+          44.7335
+        ]
+      },
+      "properties": {
+        "name": "Deer Prescribed - ORWWF",
+        "size": 65.205,
+        "status": "Prescribed",
+        "agency": "conus",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -88,7 +88,7 @@
         "status": "Prescribed",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -106,7 +106,7 @@
         "status": "100% contained",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -124,7 +124,7 @@
         "status": "Prescribed",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -142,7 +142,7 @@
         "status": "Prescribed",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -160,7 +160,7 @@
         "status": "Prescribed",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -178,7 +178,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -196,7 +196,7 @@
         "status": "BH",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -214,7 +214,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -232,7 +232,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -250,7 +250,7 @@
         "status": "BH",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -268,7 +268,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -286,7 +286,7 @@
         "status": "0% contained",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -304,7 +304,7 @@
         "status": "95% contained",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -322,7 +322,7 @@
         "status": "100% contained",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -340,7 +340,7 @@
         "status": "0% contained",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -358,7 +358,7 @@
         "status": "Prescribed",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -376,7 +376,7 @@
         "status": "Prescribed",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -394,7 +394,7 @@
         "status": "Prescribed",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -412,7 +412,7 @@
         "status": "UC",
         "agency": "mb",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -430,7 +430,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -448,7 +448,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -466,7 +466,7 @@
         "status": "BH",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -484,7 +484,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -502,7 +502,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -520,25 +520,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -113.754,
-          56.4884
-        ]
-      },
-      "properties": {
-        "name": "SWF-071-2025",
-        "size": 79,
-        "status": "UC",
-        "agency": "ab",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -556,7 +538,25 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -113.754,
+          56.4884
+        ]
+      },
+      "properties": {
+        "name": "SWF-071-2025",
+        "size": 79,
+        "status": "UC",
+        "agency": "ab",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -574,7 +574,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.732Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -592,7 +592,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -610,7 +610,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -628,7 +628,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -646,7 +646,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -664,7 +664,7 @@
         "status": "OC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -682,7 +682,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -700,7 +700,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -718,7 +718,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -736,7 +736,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -754,7 +754,7 @@
         "status": "OC",
         "agency": "nt",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -772,7 +772,7 @@
         "status": "OC",
         "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -790,7 +790,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -808,7 +808,7 @@
         "status": "BH",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -826,7 +826,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -844,7 +844,7 @@
         "status": "UC",
         "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -862,7 +862,7 @@
         "status": "OC",
         "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -880,7 +880,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -898,7 +898,7 @@
         "status": "UC",
         "agency": "mb",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -916,7 +916,7 @@
         "status": "BH",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -934,7 +934,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -952,7 +952,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -970,7 +970,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -988,7 +988,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1006,7 +1006,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1024,7 +1024,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1042,7 +1042,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1060,7 +1060,7 @@
         "status": "UC",
         "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1078,7 +1078,7 @@
         "status": "UC",
         "agency": "nt",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1096,7 +1096,7 @@
         "status": "UC",
         "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1114,7 +1114,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1132,7 +1132,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1150,7 +1150,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1168,7 +1168,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1186,7 +1186,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1204,7 +1204,7 @@
         "status": "UC",
         "agency": "sk",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1222,7 +1222,7 @@
         "status": "OC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1240,7 +1240,7 @@
         "status": "BH",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1258,7 +1258,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1276,7 +1276,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1294,7 +1294,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1312,7 +1312,7 @@
         "status": "BH",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1330,7 +1330,7 @@
         "status": "OC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1348,7 +1348,7 @@
         "status": "BH",
         "agency": "mb",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1366,7 +1366,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1384,7 +1384,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1402,7 +1402,7 @@
         "status": "OC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1420,7 +1420,7 @@
         "status": "OC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1438,7 +1438,7 @@
         "status": "BH",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1456,7 +1456,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1474,7 +1474,7 @@
         "status": "OC",
         "agency": "pc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1492,7 +1492,7 @@
         "status": "UC",
         "agency": "mb",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1510,7 +1510,7 @@
         "status": "UC",
         "agency": "nt",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1528,7 +1528,7 @@
         "status": "OC",
         "agency": "sk",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1546,7 +1546,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1564,7 +1564,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1582,7 +1582,7 @@
         "status": "OC",
         "agency": "nt",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1600,7 +1600,7 @@
         "status": "OC",
         "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1618,7 +1618,7 @@
         "status": "OC",
         "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1636,7 +1636,7 @@
         "status": "BH",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1654,7 +1654,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1672,7 +1672,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1690,7 +1690,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1708,7 +1708,7 @@
         "status": "BH",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1726,7 +1726,7 @@
         "status": "100% contained",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1744,25 +1744,7 @@
         "status": "OC",
         "agency": "nt",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -91.6294,
-          51.7353
-        ]
-      },
-      "properties": {
-        "name": "SLK_FIRE_018",
-        "size": 5521,
-        "status": "OC",
-        "agency": "on",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1780,7 +1762,7 @@
         "status": "OC",
         "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1798,7 +1780,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1816,7 +1798,7 @@
         "status": "100% contained",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1834,25 +1816,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -102.576,
-          54.633
-        ]
-      },
-      "properties": {
-        "name": "25DB-WOLF",
-        "size": 130822,
-        "status": "OC",
-        "agency": "sk",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1870,7 +1834,7 @@
         "status": "OC",
         "agency": "mb",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1888,7 +1852,7 @@
         "status": "OC",
         "agency": "sk",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1906,7 +1870,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1924,7 +1888,7 @@
         "status": "OC",
         "agency": "mb",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1942,7 +1906,7 @@
         "status": "OC",
         "agency": "mb",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1960,7 +1924,7 @@
         "status": "OC",
         "agency": "mb",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1978,7 +1942,7 @@
         "status": "BH",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -1996,25 +1960,7 @@
         "status": "BH",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -120.553,
-          58.4746
-        ]
-      },
-      "properties": {
-        "name": "G90406",
-        "size": 68.5,
-        "status": "OC",
-        "agency": "bc",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2032,7 +1978,7 @@
         "status": "UC",
         "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2050,7 +1996,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2068,7 +2014,25 @@
         "status": "OC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -120.553,
+          58.4746
+        ]
+      },
+      "properties": {
+        "name": "G90406",
+        "size": 68.5,
+        "status": "OC",
+        "agency": "bc",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2086,7 +2050,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2104,7 +2068,7 @@
         "status": "OC",
         "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2122,7 +2086,7 @@
         "status": "BH",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2140,7 +2104,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2158,7 +2122,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2176,7 +2140,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2194,7 +2158,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2212,7 +2176,7 @@
         "status": "BH",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2230,7 +2194,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2248,7 +2212,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2266,7 +2230,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2284,7 +2248,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2302,7 +2266,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2320,25 +2284,7 @@
         "status": "OC",
         "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -111.566,
-          57.8246
-        ]
-      },
-      "properties": {
-        "name": "MWF-028-2025",
-        "size": 372,
-        "status": "OC",
-        "agency": "ab",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2356,7 +2302,7 @@
         "status": "OC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2374,7 +2320,25 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.826Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.566,
+          57.8246
+        ]
+      },
+      "properties": {
+        "name": "MWF-028-2025",
+        "size": 372,
+        "status": "OC",
+        "agency": "ab",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.826Z"
       }
     },
     {
@@ -2392,7 +2356,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2410,7 +2374,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2428,7 +2392,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2446,43 +2410,7 @@
         "status": "BH",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -125.535,
-          49.9463
-        ]
-      },
-      "properties": {
-        "name": "V80562",
-        "size": 4,
-        "status": "UC",
-        "agency": "bc",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -116.299,
-          51.0336
-        ]
-      },
-      "properties": {
-        "name": "N40546",
-        "size": 2.7,
-        "status": "UC",
-        "agency": "bc",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2500,7 +2428,43 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -125.535,
+          49.9463
+        ]
+      },
+      "properties": {
+        "name": "V80562",
+        "size": 4,
+        "status": "UC",
+        "agency": "bc",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.299,
+          51.0336
+        ]
+      },
+      "properties": {
+        "name": "N40546",
+        "size": 2.7,
+        "status": "UC",
+        "agency": "bc",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2518,7 +2482,7 @@
         "status": "OC",
         "agency": "yt",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2536,7 +2500,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2554,25 +2518,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -121.831,
-          56.6445
-        ]
-      },
-      "properties": {
-        "name": "G80550",
-        "size": 5.2,
-        "status": "UC",
-        "agency": "bc",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2590,7 +2536,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2608,7 +2554,25 @@
         "status": "OC",
         "agency": "sk",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.831,
+          56.6445
+        ]
+      },
+      "properties": {
+        "name": "G80550",
+        "size": 5.2,
+        "status": "UC",
+        "agency": "bc",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2626,7 +2590,7 @@
         "status": "OC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2644,43 +2608,7 @@
         "status": "OC",
         "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -117.205,
-          49.4946
-        ]
-      },
-      "properties": {
-        "name": "N70596",
-        "size": 0,
-        "status": "OC",
-        "agency": "bc",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -120.275,
-          55.178
-        ]
-      },
-      "properties": {
-        "name": "G70422",
-        "size": 26627,
-        "status": "OC",
-        "agency": "bc",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2698,25 +2626,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -110.688,
-          55.1931
-        ]
-      },
-      "properties": {
-        "name": "LWF-090-2025",
-        "size": 69104,
-        "status": "OC",
-        "agency": "ab",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2734,7 +2644,7 @@
         "status": "OC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2752,7 +2662,7 @@
         "status": "OC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2770,7 +2680,25 @@
         "status": "OC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.688,
+          55.1931
+        ]
+      },
+      "properties": {
+        "name": "LWF-090-2025",
+        "size": 69104,
+        "status": "OC",
+        "agency": "ab",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2788,7 +2716,7 @@
         "status": "OC",
         "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2806,7 +2734,7 @@
         "status": "UC",
         "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2824,7 +2752,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2842,7 +2770,7 @@
         "status": "OC",
         "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2860,43 +2788,7 @@
         "status": "OC",
         "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -126.614,
-          53.8001
-        ]
-      },
-      "properties": {
-        "name": "R20528",
-        "size": 986,
-        "status": "OC",
-        "agency": "bc",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -91.9443,
-          52.3962
-        ]
-      },
-      "properties": {
-        "name": "SLK_FIRE_016",
-        "size": 154,
-        "status": "OC",
-        "agency": "on",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2914,7 +2806,7 @@
         "status": "BH",
         "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2932,7 +2824,25 @@
         "status": "BH",
         "agency": "mb",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -91.9443,
+          52.3962
+        ]
+      },
+      "properties": {
+        "name": "SLK_FIRE_016",
+        "size": 154,
+        "status": "OC",
+        "agency": "on",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -2950,61 +2860,7 @@
         "status": "BH",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -124.165,
-          59.5757
-        ]
-      },
-      "properties": {
-        "name": "G90569",
-        "size": 2.7,
-        "status": "OC",
-        "agency": "bc",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -124.432,
-          49.1678
-        ]
-      },
-      "properties": {
-        "name": "V70573",
-        "size": 5.7,
-        "status": "UC",
-        "agency": "bc",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -118.832,
-          50.579
-        ]
-      },
-      "properties": {
-        "name": "K40589",
-        "size": 0.3,
-        "status": "UC",
-        "agency": "bc",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3022,7 +2878,7 @@
         "status": "OC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3040,7 +2896,25 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.832,
+          50.579
+        ]
+      },
+      "properties": {
+        "name": "K40589",
+        "size": 0.3,
+        "status": "UC",
+        "agency": "bc",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3058,25 +2932,7 @@
         "status": "OC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -113.838,
-          56.789
-        ]
-      },
-      "properties": {
-        "name": "SWF-085-2025",
-        "size": 137878,
-        "status": "OC",
-        "agency": "ab",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3094,7 +2950,7 @@
         "status": "OC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3112,7 +2968,7 @@
         "status": "BH",
         "agency": "nt",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3130,7 +2986,7 @@
         "status": "OC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3138,17 +2994,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -120.804,
-          47.1964
+          -113.838,
+          56.789
         ]
       },
       "properties": {
-        "name": "Red Bridge Road - WACWC",
-        "size": 21.465,
-        "status": "90% contained",
-        "agency": "conus",
+        "name": "SWF-085-2025",
+        "size": 137878,
+        "status": "OC",
+        "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3166,7 +3022,7 @@
         "status": "OC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3174,17 +3030,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -98.2917,
-          54.3772
+          -120.804,
+          47.1964
         ]
       },
       "properties": {
-        "name": "NO005",
-        "size": 64861.5,
-        "status": "OC",
-        "agency": "mb",
+        "name": "Red Bridge Road - WACWC",
+        "size": 21.465,
+        "status": "90% contained",
+        "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3202,7 +3058,25 @@
         "status": "OC",
         "agency": "mb",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.2917,
+          54.3772
+        ]
+      },
+      "properties": {
+        "name": "NO005",
+        "size": 64861.5,
+        "status": "OC",
+        "agency": "mb",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3220,7 +3094,7 @@
         "status": "OC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3238,25 +3112,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -118.863,
-          58.5362
-        ]
-      },
-      "properties": {
-        "name": "HWF-036-2025",
-        "size": 42412,
-        "status": "OC",
-        "agency": "ab",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3274,7 +3130,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3282,35 +3138,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -94.071,
-          52.6561
+          -118.863,
+          58.5362
         ]
       },
       "properties": {
-        "name": "RED_FIRE_012",
-        "size": 175962,
+        "name": "HWF-036-2025",
+        "size": 42412,
         "status": "OC",
-        "agency": "on",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -115.989,
-          53.6484
-        ]
-      },
-      "properties": {
-        "name": "EWF-036-2025",
-        "size": 738,
-        "status": "BH",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3328,7 +3166,7 @@
         "status": "UC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3336,53 +3174,35 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -116.757,
-          57.999
+          -94.071,
+          52.6561
         ]
       },
       "properties": {
-        "name": "HWF-040-2025",
-        "size": 395,
-        "status": "UC",
+        "name": "RED_FIRE_012",
+        "size": 175962,
+        "status": "OC",
+        "agency": "on",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.989,
+          53.6484
+        ]
+      },
+      "properties": {
+        "name": "EWF-036-2025",
+        "size": 738,
+        "status": "BH",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -122.489,
-          57.6493
-        ]
-      },
-      "properties": {
-        "name": "G80395",
-        "size": 1,
-        "status": "BH",
-        "agency": "bc",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -100.937,
-          56.9142
-        ]
-      },
-      "properties": {
-        "name": "NO002",
-        "size": 70823,
-        "status": "OC",
-        "agency": "mb",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3400,7 +3220,61 @@
         "status": "OC",
         "agency": "mb",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.757,
+          57.999
+        ]
+      },
+      "properties": {
+        "name": "HWF-040-2025",
+        "size": 395,
+        "status": "UC",
+        "agency": "ab",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.489,
+          57.6493
+        ]
+      },
+      "properties": {
+        "name": "G80395",
+        "size": 1,
+        "status": "BH",
+        "agency": "bc",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -100.937,
+          56.9142
+        ]
+      },
+      "properties": {
+        "name": "NO002",
+        "size": 70823,
+        "status": "OC",
+        "agency": "mb",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3418,25 +3292,7 @@
         "status": "OC",
         "agency": "mb",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -102.918,
-          55.1897
-        ]
-      },
-      "properties": {
-        "name": "25DB-PELICAN2",
-        "size": 35100,
-        "status": "UC",
-        "agency": "sk",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3454,7 +3310,7 @@
         "status": "100% contained",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3472,7 +3328,25 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -102.918,
+          55.1897
+        ]
+      },
+      "properties": {
+        "name": "25DB-PELICAN2",
+        "size": 35100,
+        "status": "UC",
+        "agency": "sk",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3490,61 +3364,7 @@
         "status": "OC",
         "agency": "ab",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -124.609,
-          58.735
-        ]
-      },
-      "properties": {
-        "name": "G90413",
-        "size": 84923,
-        "status": "OC",
-        "agency": "bc",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -104.858,
-          54.209
-        ]
-      },
-      "properties": {
-        "name": "25LF-SHOE",
-        "size": 554484,
-        "status": "OC",
-        "agency": "sk",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -67.0428,
-          45.9291
-        ]
-      },
-      "properties": {
-        "name": "67322",
-        "size": 0.1,
-        "status": "BH",
-        "agency": "nb",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3562,25 +3382,7 @@
         "status": "98% contained",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -89.4224,
-          54.0343
-        ]
-      },
-      "properties": {
-        "name": "SLK_FIRE_021",
-        "size": 18,
-        "status": "BH",
-        "agency": "on",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3598,7 +3400,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3616,7 +3418,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3634,25 +3436,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -105.801,
-          54.4445
-        ]
-      },
-      "properties": {
-        "name": "25WY-DITCH02",
-        "size": 181869,
-        "status": "OC",
-        "agency": "sk",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3670,43 +3454,7 @@
         "status": "BH",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -121.945,
-          59.8764
-        ]
-      },
-      "properties": {
-        "name": "G90283",
-        "size": 2922.1,
-        "status": "OC",
-        "agency": "bc",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -120.064,
-          59.1681
-        ]
-      },
-      "properties": {
-        "name": "G90475",
-        "size": 5037,
-        "status": "OC",
-        "agency": "bc",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3724,7 +3472,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3732,53 +3480,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -78.5872,
-          53.9672
+          -120.064,
+          59.1681
         ]
       },
       "properties": {
-        "name": "130",
-        "size": 13.6,
+        "name": "G90475",
+        "size": 5037,
         "status": "OC",
-        "agency": "qc",
+        "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -101.37,
-          54.2578
-        ]
-      },
-      "properties": {
-        "name": "WE023",
-        "size": 4921,
-        "status": "UC",
-        "agency": "mb",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -106.848,
-          55.8351
-        ]
-      },
-      "properties": {
-        "name": "25LX-KNEE",
-        "size": 7367,
-        "status": "UC",
-        "agency": "sk",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3796,7 +3508,7 @@
         "status": "OC",
         "agency": "sk",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3804,17 +3516,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -120.42,
-          59.31
+          -106.848,
+          55.8351
         ]
       },
       "properties": {
-        "name": "G90205",
-        "size": 854.6,
-        "status": "OC",
-        "agency": "bc",
+        "name": "25LX-KNEE",
+        "size": 7367,
+        "status": "UC",
+        "agency": "sk",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3822,17 +3534,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -99.3258,
-          53.2775
+          -101.37,
+          54.2578
         ]
       },
       "properties": {
-        "name": "WE027",
-        "size": 11975,
-        "status": "BH",
+        "name": "WE023",
+        "size": 4921,
+        "status": "UC",
         "agency": "mb",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3850,7 +3562,7 @@
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3858,17 +3570,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -121.855,
-          58.2515
+          -99.3258,
+          53.2775
         ]
       },
       "properties": {
-        "name": "G90425",
-        "size": 11341.7,
-        "status": "OC",
-        "agency": "bc",
+        "name": "WE027",
+        "size": 11975,
+        "status": "BH",
+        "agency": "mb",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3876,17 +3588,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -120.114,
-          59.2901
+          -120.42,
+          59.31
         ]
       },
       "properties": {
-        "name": "G90474",
-        "size": 4061,
+        "name": "G90205",
+        "size": 854.6,
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3904,7 +3616,7 @@
         "status": "UC",
         "agency": "mb",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3912,53 +3624,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -121.289,
-          45.6792
+          -120.114,
+          59.2901
         ]
       },
       "properties": {
-        "name": "Rowena - OR95S",
-        "size": 1551.56,
-        "status": "5% contained",
-        "agency": "conus",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -93.8296,
-          53.4123
-        ]
-      },
-      "properties": {
-        "name": "RED_FIRE_019",
-        "size": 650,
-        "status": "OC",
-        "agency": "on",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -118.251,
-          51.2091
-        ]
-      },
-      "properties": {
-        "name": "N40595",
-        "size": 4.1,
+        "name": "G90474",
+        "size": 4061,
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3976,7 +3652,7 @@
         "status": "OC",
         "agency": "sk",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -3994,7 +3670,7 @@
         "status": "OC",
         "agency": "nt",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -4012,25 +3688,7 @@
         "status": "100% contained",
         "agency": "conus",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -118.016,
-          51.9544
-        ]
-      },
-      "properties": {
-        "name": "N40593",
-        "size": 0.2,
-        "status": "BH",
-        "agency": "bc",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -4048,25 +3706,7 @@
         "status": "BH",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -92.7299,
-          54.3505
-        ]
-      },
-      "properties": {
-        "name": "RED_FIRE_020",
-        "size": 1200,
-        "status": "OC",
-        "agency": "on",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -4084,7 +3724,7 @@
         "status": "BH",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -4102,7 +3742,7 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -4120,7 +3760,439 @@
         "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.945,
+          59.8764
+        ]
+      },
+      "properties": {
+        "name": "G90283",
+        "size": 4079.4,
+        "status": "OC",
+        "agency": "bc",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.855,
+          58.2515
+        ]
+      },
+      "properties": {
+        "name": "G90425",
+        "size": 11397,
+        "status": "OC",
+        "agency": "bc",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -124.609,
+          58.735
+        ]
+      },
+      "properties": {
+        "name": "G90413",
+        "size": 81391.2,
+        "status": "OC",
+        "agency": "bc",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.866,
+          49.5317
+        ]
+      },
+      "properties": {
+        "name": "N10626",
+        "size": 0,
+        "status": "UC",
+        "agency": "bc",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -104.858,
+          54.209
+        ]
+      },
+      "properties": {
+        "name": "25LF-SHOE",
+        "size": 550663,
+        "status": "OC",
+        "agency": "sk",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -102.576,
+          54.633
+        ]
+      },
+      "properties": {
+        "name": "25DB-WOLF",
+        "size": 130882,
+        "status": "OC",
+        "agency": "sk",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.289,
+          45.6792
+        ]
+      },
+      "properties": {
+        "name": "Rowena - OR95S",
+        "size": 1472.58,
+        "status": "10% contained",
+        "agency": "conus",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -124.165,
+          59.5757
+        ]
+      },
+      "properties": {
+        "name": "G90569",
+        "size": 2.7,
+        "status": "OC",
+        "agency": "bc",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -124.432,
+          49.1678
+        ]
+      },
+      "properties": {
+        "name": "V70573",
+        "size": 5.7,
+        "status": "UC",
+        "agency": "bc",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -120.275,
+          55.178
+        ]
+      },
+      "properties": {
+        "name": "G70422",
+        "size": 26623,
+        "status": "OC",
+        "agency": "bc",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -126.614,
+          53.8001
+        ]
+      },
+      "properties": {
+        "name": "R20528",
+        "size": 1001,
+        "status": "OC",
+        "agency": "bc",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -78.5872,
+          53.9672
+        ]
+      },
+      "properties": {
+        "name": "130",
+        "size": 343.1,
+        "status": "OC",
+        "agency": "qc",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.016,
+          51.9544
+        ]
+      },
+      "properties": {
+        "name": "N40593",
+        "size": 0.2,
+        "status": "UC",
+        "agency": "bc",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -120.723,
+          48.0914
+        ]
+      },
+      "properties": {
+        "name": "Pomas 2025 - WAOWF",
+        "size": 40.5,
+        "status": "0% contained",
+        "agency": "conus",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.701,
+          50.3729
+        ]
+      },
+      "properties": {
+        "name": "K40597",
+        "size": 8.8,
+        "status": "BH",
+        "agency": "bc",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -129.733,
+          65.5732
+        ]
+      },
+      "properties": {
+        "name": "VQ002-25",
+        "size": 39,
+        "status": "OC",
+        "agency": "nt",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.8474,
+          54.3289
+        ]
+      },
+      "properties": {
+        "name": "SLK_FIRE_023",
+        "size": 150,
+        "status": "OC",
+        "agency": "on",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -102.051,
+          54.5323
+        ]
+      },
+      "properties": {
+        "name": "25DB-TAYLOR",
+        "size": 2,
+        "status": "OC",
+        "agency": "sk",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -91.6294,
+          51.7353
+        ]
+      },
+      "properties": {
+        "name": "SLK_FIRE_018",
+        "size": 17901,
+        "status": "OC",
+        "agency": "on",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -92.7299,
+          54.3505
+        ]
+      },
+      "properties": {
+        "name": "RED_FIRE_020",
+        "size": 1731,
+        "status": "OC",
+        "agency": "on",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.8296,
+          53.4123
+        ]
+      },
+      "properties": {
+        "name": "RED_FIRE_019",
+        "size": 13439,
+        "status": "OC",
+        "agency": "on",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -120.608,
+          50.7627
+        ]
+      },
+      "properties": {
+        "name": "K20632",
+        "size": 1.5,
+        "status": "OC",
+        "agency": "bc",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.529,
+          42.9003
+        ]
+      },
+      "properties": {
+        "name": "Horse - WYBTF",
+        "size": 392.04,
+        "status": "6% contained",
+        "agency": "conus",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.313,
+          46.4856
+        ]
+      },
+      "properties": {
+        "name": "Jericho Mountain - MTHLF",
+        "size": 12.15,
+        "status": "0% contained",
+        "agency": "conus",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.828Z"
       }
     },
     {
@@ -4138,7 +4210,7 @@
         "status": "OC",
         "agency": "mb",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.829Z"
       }
     },
     {
@@ -4146,17 +4218,53 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -118.701,
-          50.3729
+          -105.801,
+          54.4445
         ]
       },
       "properties": {
-        "name": "K40597",
-        "size": 8.8,
+        "name": "25WY-DITCH02",
+        "size": 182471,
+        "status": "UC",
+        "agency": "sk",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.829Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -138.851,
+          64.2128
+        ]
+      },
+      "properties": {
+        "name": "2025DA001",
+        "size": 1,
+        "status": "OC",
+        "agency": "yt",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.829Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -124.497,
+          51.9885
+        ]
+      },
+      "properties": {
+        "name": "C50627",
+        "size": 20,
         "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.829Z"
       }
     },
     {
@@ -4164,53 +4272,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -92.1144,
-          48.7861
+          -121.487,
+          51.2782
         ]
       },
       "properties": {
-        "name": "FOR_FIRE_015",
-        "size": 0.1,
+        "name": "C40637",
+        "size": 0.4,
         "status": "BH",
-        "agency": "on",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -70.8781,
-          49.5164
-        ]
-      },
-      "properties": {
-        "name": "131",
-        "size": 0.5,
-        "status": "UC",
-        "agency": "qc",
-        "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -116.867,
-          49.0136
-        ]
-      },
-      "properties": {
-        "name": "N70622",
-        "size": 0.2,
-        "status": "UC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.829Z"
       }
     },
     {
@@ -4218,17 +4290,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -115.239,
-          49.2848
+          -122.211,
+          52.1057
         ]
       },
       "properties": {
-        "name": "N10625",
+        "name": "C20639",
         "size": 0,
-        "status": "UC",
+        "status": "OC",
         "agency": "bc",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.829Z"
       }
     },
     {
@@ -4243,10 +4315,10 @@
       "properties": {
         "name": "SLK_FIRE_022",
         "size": 0.5,
-        "status": "OC",
+        "status": "BH",
         "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.829Z"
       }
     },
     {
@@ -4254,17 +4326,53 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -110.722,
-          42.9042
+          -89.4224,
+          54.0343
         ]
       },
       "properties": {
-        "name": "Horse - WYBTF",
-        "size": 162,
-        "status": "6% contained",
-        "agency": "conus",
+        "name": "SLK_FIRE_021",
+        "size": 18,
+        "status": "UC",
+        "agency": "on",
         "source": "CWFIS",
-        "updated": "2025-06-15T04:00:23.736Z"
+        "updated": "2025-06-16T04:00:23.829Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.03,
+          65.42
+        ]
+      },
+      "properties": {
+        "name": "VQ003-25",
+        "size": 5,
+        "status": "OC",
+        "agency": "nt",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.829Z"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.35,
+          63.35
+        ]
+      },
+      "properties": {
+        "name": "FS007-25",
+        "size": 10,
+        "status": "OC",
+        "agency": "nt",
+        "source": "CWFIS",
+        "updated": "2025-06-16T04:00:23.829Z"
       }
     }
   ]
